@@ -1,0 +1,51 @@
+version: "3.3"
+
+services:
+#Nginx Service
+   nginx:
+     container_name: MmWebserver
+     build:
+       context: .
+       dockerfile: docker/nginx.Dockerfile
+     ports:
+       - 80:80
+     links:
+       - fpm
+     volumes:
+         - ./:/var/www/mm-docker
+     networks:
+       - app-network
+#Php Service
+   fpm:
+     container_name: MmFpm
+     build:
+       context: .
+       dockerfile: docker/fpm.Dockerfile
+     volumes:
+       - ./:/var/www/mm-docker
+     links:
+       - mysql
+     networks:
+       - app-network
+#MySQL Service
+   mysql:
+     container_name: MmDb
+     image: mysql:5.7
+     ports:
+       - 3306:3306
+     environment:
+       - MYSQL_ROOT_PASSWORD=root
+       - MYSQL_DATABASE=money_management
+     volumes:
+       - dbdata:/var/lib/mysql
+       - ./mysql/my.cnf:/etc/mysql/my.cnf
+     networks:
+       - app-network
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
