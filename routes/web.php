@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\IncomeTypeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestController as Controllers1;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,12 @@ use App\Http\Controllers\TestController as Controllers1;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.home');
 });
 
-Route::get('/test', 'App\Http\Controllers\TestController@test');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::resource('income-type', IncomeTypeController::class)->middleware('auth');
+Route::resource('income', IncomeController::class)->middleware('auth');
