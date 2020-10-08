@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IncomeType;
+use App\Models\CostsType;
 use Illuminate\Http\Request;
 
-class IncomeTypeController extends Controller
+class CostsTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class IncomeTypeController extends Controller
      */
     public function index()
     {
-        $incomeType = IncomeType::latest()->paginate(5);
+        $costsType = CostsType::latest()->paginate(5);
 
-        return view('income-type.index', compact('incomeType'))
+        return view('costs-type.index', compact('costsType'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +27,7 @@ class IncomeTypeController extends Controller
      */
     public function create()
     {
-        return view('income-type.create');
+        return view('costs-type.create');
     }
 
     /**
@@ -43,65 +43,68 @@ class IncomeTypeController extends Controller
             'desc' => 'required'
         ]);
 
-        IncomeType::create($request->all());
+        CostsType::create($request->all());
 
-        return redirect()->route('income-type.index')
-            ->with('success', 'Income type created successfully.');
+        return redirect()->route('costs-type.index')
+            ->with('success', 'Costs type created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\IncomeType  $incomeType
+     * @param  \App\Models\CostsType  $costsType
      * @return \Illuminate\Http\Response
      */
-    public function show(IncomeType $incomeType)
+    public function show(CostsType $costsType)
     {
-        return view('income-type.show', compact('incomeType'));
+        return view('costs-type.show', compact('costsType'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\IncomeType  $incomeType
+     * @param  \App\Models\CostsType  $costsType
      * @return \Illuminate\Http\Response
      */
-    public function edit(IncomeType $incomeType)
+    public function edit(CostsType $costsType)
     {
-        return view('income-type.edit', compact('incomeType'));
+        return view('costs-type.edit', compact('costsType'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\IncomeType  $incomeType
+     * @param  \App\Models\CostsType  $costsType
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, IncomeType $incomeType)
+    public function update(Request $request, CostsType $costsType)
     {
         $request->validate([
             'name' => 'required',
             'desc' => 'required'
         ]);
-        $incomeType->update($request->all());
+        $costsType->update($request->all());
 
-        return redirect()->route('income-type.index')
-            ->with('success', 'Income type updated successfully');
+        return redirect()->route('costs-type.index')
+            ->with('success', 'Costs type updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\IncomeType $incomeType
+     * @param \App\Models\CostsType $costsType
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(IncomeType $incomeType)
+    public function destroy(CostsType $costsType)
     {
-        $incomeType->delete();
+        try {
+            $costsType->delete();
+        } catch (\Exception $e) {
+        }
 
-        return redirect()->route('income-type.index')
-            ->with('success', 'Income type deleted successfully');
+        return redirect()->route('costs-type.index')
+            ->with('success', 'Costs type deleted successfully');
     }
 }

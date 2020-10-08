@@ -1,18 +1,17 @@
 @extends('layouts.template')
 
-
 @section('content')
 
-    <h1 class="mt-4">Show type income</h1>
+    <h1 class="mt-4">Show costs</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item"><a href="/income-type/">Type income</a></li>
-        <li class="breadcrumb-item active"> {{ $incomeType->name }}</li>
+        <li class="breadcrumb-item"><a href="/costs/">Costs</a></li>
+        <li class="breadcrumb-item active"> {{ $cost->id }}</li>
     </ol>
     <div class="row">
         <div class="col-lg-12 my-2">
             <div class="pull-left">
-                <a class="btn btn-primary" href="{{ route('income-type.index') }}" title="Go back">Back <i
+                <a class="btn btn-primary" href="{{ route('costs.index') }}" title="Go back">Back <i
                         class="fas fa-backward "></i> </a>
                 </a>
             </div>
@@ -22,20 +21,26 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 m-2">
                 <div class="form-group">
-                    <strong>Name:</strong>
-                    {{ $incomeType->name }}
+                    <strong>Type:</strong>
+                    {{ $costsType[$cost->type]['name'] }}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 m-2">
+                <div class="form-group">
+                    <strong>Amount:</strong>
+                    {{ $cost->amount }}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 m-2">
                 <div class="form-group">
                     <strong>Description:</strong>
-                    {{ $incomeType->desc }}
+                    {{ $cost->desc }}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 m-2">
                 <div class="form-group">
                     <strong>Date Created:</strong>
-                    {{ date_format($incomeType->created_at, 'jS M Y') }}
+                    {{ date_format(new DateTime($cost->date), 'jS M Y') }}
                 </div>
             </div>
         </div>

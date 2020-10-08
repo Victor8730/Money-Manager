@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="Webpagestudio" />
-    <title>Dashboard - SB Admin</title>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
+    <title>Money manager - SB Admin</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
     @livewireStyles
@@ -26,7 +26,6 @@
                 <div class="dropdown-divider"></div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <a class="dropdown-item" href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                             this.closest('form').submit();">
@@ -59,42 +58,22 @@
                             <a class="nav-link {{ Request::is('income-type*') ? "active" : null }}" href="/income-type/">Type incomes</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCosts" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        costs
+                        Costs
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Authentication
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="login.html">Login</a>
-                                    <a class="nav-link" href="register.html">Register</a>
-                                    <a class="nav-link" href="password.html">Forgot Password</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Error
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="401.html">401 Page</a>
-                                    <a class="nav-link" href="404.html">404 Page</a>
-                                    <a class="nav-link" href="500.html">500 Page</a>
-                                </nav>
-                            </div>
+                    <div class="collapse {{ Request::is('costs*') ? "show" : null }}" id="collapseCosts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav" id="incomeNav">
+                            <a class="nav-link {{ Request::is('costs/*') ? "active" : null }}" href="/costs">List costs</a>
+                            <a class="nav-link {{ Request::is('costs-type*') ? "active" : null }}" href="/costs-type/">Type costs</a>
                         </nav>
                     </div>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">Logged in as:</div>
-                Start Bootstrap
+                <div class="small">Logged in:</div>
+                {{ Auth::user()->name }}
             </div>
         </nav>
     </div>

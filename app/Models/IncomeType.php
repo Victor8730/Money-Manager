@@ -15,8 +15,17 @@ class IncomeType extends Model
      */
     protected $table = 'income_type';
 
+    /**
+     *  Indicates if the model has update and creation timestamps.
+     * @var bool
+     */
     public $timestamps = true;
 
+    /**
+     * The attributes that are mass assignable.
+     * Array of fields from the database
+     * @var array|string[]
+     */
     protected $fillable = [
         'name',
         'desc',

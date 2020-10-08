@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Income extends Model
+class Costs extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class Income extends Model
      * The name of the table in the database
      * @var string
      */
-    protected $table = 'income';
+    protected $table = 'costs';
 
     /**
      * Indicates if the model has update and creation timestamps.
@@ -29,6 +29,7 @@ class Income extends Model
     protected $fillable = [
         'user_id',
         'type',
+        'desc',
         'amount',
         'date',
         'created_at',

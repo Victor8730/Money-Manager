@@ -2,44 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Income;
-use App\Models\IncomeType;
+use App\Models\Costs;
+use App\Models\CostsType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IncomeController extends Controller
+class CostsController extends Controller
 {
     /**
-     * Display a listing of the income.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index()
     {
-        $incomeType = IncomeType::all('name', 'id')->keyBy('id')->toArray();
-        $income = Income::latest()->paginate(5);
+        $costsType = CostsType::all('name', 'id')->keyBy('id')->toArray();
+        $costs = Costs::latest()->where('user_id', Auth::id())->paginate(5);
 
-        return view('income.index', compact('income', 'incomeType'))
+        return view('costs.index', compact('costs', 'costsType'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
-     * Show the form for creating a new income.
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function create()
     {
-        $incomeType = IncomeType::all('name', 'id');
+        $costsType = CostsType::all('name', 'id');
 
-        return view('income.create', compact('incomeType'));
+        return view('costs.create', compact('costsType'));
     }
 
     /**
-     * Store a newly created income in storage.
+     * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -49,75 +49,75 @@ class IncomeController extends Controller
             'date' => 'required'
         ]);
 
-        Income::create([
+        Costs::create([
             'type' => $request['type'],
             'amount' => $request['amount'],
             'date' => $request['date'],
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('income.index')
-            ->with('success', 'Income created successfully.');
+        return redirect()->route('costs.index')
+            ->with('success', 'Costs created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Income $income
+     * @param  \App\Models\Costs $cost
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function show(Income $income)
+    public function show(Costs $cost)
     {
-        $incomeType = IncomeType::all('name', 'id')->keyBy('id')->toArray();
+        $costsType = CostsType::all('name', 'id')->keyBy('id')->toArray();
 
-        return view('income.show', compact('income', 'incomeType'));
+        return view('costs.show', compact('cost', 'costsType'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Income $income
+     * @param  \App\Models\Costs $cost
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function edit(Income $income)
+    public function edit(Costs $cost)
     {
-        $incomeType = IncomeType::all('name', 'id');
+        $costsType = CostsType::all('name', 'id');
 
-        return view('income.edit', compact('income', 'incomeType'));
+        return view('costs.edit', compact('cost', 'costsType'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Income $income
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Costs $cost
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, Income $income)
+    public function update(Request $request, Costs $cost)
     {
         $request->validate([
             'amount' => 'required',
             'type' => 'required',
             'date' => 'required',
         ]);
-        $income->update($request->all());
+        $cost->update($request->all());
 
-        return redirect()->route('income.index')
-            ->with('success', 'Income updated successfully');
+        return redirect()->route('costs.index')
+            ->with('success', 'Costs updated successfully');
     }
-
 
     /**
      * Remove the specified resource from storage.
-     * @param \App\Models\Income $income
+     *
+     * @param  \App\Models\Costs  $cost
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Income $income)
+    public function destroy(Costs $cost)
     {
-        $income->delete();
+        $cost->delete();
 
-        return redirect()->route('income.index')
-            ->with('success', 'Income deleted successfully');
+        return redirect()->route('costs.index')
+            ->with('success', 'Cost deleted successfully');
     }
 }
