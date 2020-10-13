@@ -17,6 +17,7 @@ class CreateIncomeTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('type');
+            $table->text('desc')->nullable();
             $table->date('date');
             $table->integer('amount');
             $table->timestamps();

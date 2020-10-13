@@ -53,6 +53,7 @@ class IncomeController extends Controller
             'type' => $request['type'],
             'amount' => $request['amount'],
             'date' => $request['date'],
+            'desc' => $request['desc'],
             'user_id' => Auth::id()
         ]);
 
@@ -102,8 +103,7 @@ class IncomeController extends Controller
         ]);
         $income->update($request->all());
 
-        return redirect()->route('income.index')
-            ->with('success', 'Income updated successfully');
+        return redirect()->route('income.index')->with('success', 'Income updated successfully');
     }
 
 
@@ -117,7 +117,6 @@ class IncomeController extends Controller
     {
         $income->delete();
 
-        return redirect()->route('income.index')
-            ->with('success', 'Income deleted successfully');
+        return redirect()->route('income.index')->with('success', 'Income deleted successfully');
     }
 }

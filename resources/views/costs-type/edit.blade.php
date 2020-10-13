@@ -12,7 +12,7 @@
         <div class="col-lg-12 my-2">
             <div class="pull-left">
                 <a class="btn btn-primary tooltip-show" href="{{ route('costs-type.index') }}" title="Go back">
-                    Back <i class="fas fa-backward "></i>
+                    <i class="fas fa-angle-left mr-2"></i> Back
                 </a>
             </div>
         </div>

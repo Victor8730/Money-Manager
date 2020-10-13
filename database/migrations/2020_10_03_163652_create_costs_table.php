@@ -19,7 +19,7 @@ class CreateCostsTable extends Migration
             $table->integer('user_id');
             $table->integer('amount');
             $table->date('date');
-            $table->string('desc',500)->nullable();
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }

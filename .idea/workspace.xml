@@ -20,24 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a03cef43-9c32-4f94-ac37-246ae701c211" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/Calendar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Money-management.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Money-management.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/calendar/calendar.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/calendar/day.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/IncomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/IncomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/IncomeTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/IncomeTypeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Calendar.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Calendar.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Income.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Income.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/IncomeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/IncomeType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/View/Components/AppLayout.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/View/Components/AppLayout.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_30_130903_create_income_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_30_130903_create_income_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_03_163652_create_costs_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_03_163652_create_costs_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/costs-type/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/costs-type/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/costs/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/costs/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/costs/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/costs/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/income-type/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/income-type/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/income/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/income/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/income-type/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/income-type/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/income/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/income/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/income/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/income/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/income/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/income/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/template.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -186,6 +184,12 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\server20\domains\Money-management\resources\views\calendar" />
+      <recent name="D:\server20\domains\Money-management\resources\views" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
@@ -204,7 +208,12 @@
       <workItem from="1602055544232" duration="12691000" />
       <workItem from="1602141267068" duration="3262000" />
       <workItem from="1602165953988" duration="1807000" />
-      <workItem from="1602178527572" duration="3662000" />
+      <workItem from="1602178527572" duration="9700000" />
+      <workItem from="1602435289774" duration="8755000" />
+      <workItem from="1602499157549" duration="18879000" />
+      <workItem from="1602583778500" duration="613000" />
+      <workItem from="1602598697070" duration="6000" />
+      <workItem from="1602604399664" duration="9202000" />
     </task>
     <servers />
   </component>
@@ -224,14 +233,20 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="690" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602101614718">
+    <state x="690" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1602612230585">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
-    <state x="690" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.40.1920.1040/1920.0.1280.680@0.40.1920.1040" timestamp="1602101614718" />
-    <state x="731" y="282" key="NewPhpClassDialog" timestamp="1602142101787">
+    <state x="690" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.40.1920.1040/1920.0.1280.680@0.40.1920.1040" timestamp="1602612230585" />
+    <state x="690" y="314" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.40.1920.1040@0.40.1920.1040" timestamp="1602531936565" />
+    <state x="843" y="173" key="NewPhpClassDialog" timestamp="1602447034322">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>
     <state x="731" y="282" key="NewPhpClassDialog/0.40.1920.1040/1920.0.1280.680@0.40.1920.1040" timestamp="1602142101787" />
+    <state x="843" y="173" key="NewPhpClassDialog/0.40.1920.1040@0.40.1920.1040" timestamp="1602447034322" />
+    <state x="566" y="170" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1602450916800">
+      <screen x="0" y="40" width="1920" height="1040" />
+    </state>
+    <state x="566" y="170" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.40.1920.1040@0.40.1920.1040" timestamp="1602450916800" />
     <state x="810" y="293" width="823" height="534" key="find.popup" timestamp="1602100893880">
       <screen x="0" y="40" width="1920" height="1040" />
     </state>

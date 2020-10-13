@@ -30,6 +30,7 @@ class Income extends Model
         'user_id',
         'type',
         'amount',
+        'desc',
         'date',
         'created_at',
         'updated_at'
