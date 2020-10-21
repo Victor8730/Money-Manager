@@ -14,9 +14,7 @@
                             @endforeach
                         </div>
 
-
                         {!! $calendar !!}
-
 
                     </div>
                 </div>

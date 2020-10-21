@@ -2,10 +2,8 @@
 
 declare(strict_types=1);
 
-
 namespace App\Models;
 
-use App\Models\Income;
 use Illuminate\Support\Carbon;
 
 class Calendar
@@ -59,6 +57,7 @@ class Calendar
                     ->whereMonth('date', $this->tempDate->month)
                     ->whereDay('date', $this->tempDate->day)
                     ->get();
+                $costsType = CostsType::all('name', 'id');
                 $costsData = Costs::whereYear('date', $this->tempDate->year)
                     ->whereMonth('date', $this->tempDate->month)
                     ->whereDay('date', $this->tempDate->day)
@@ -68,6 +67,7 @@ class Calendar
                     'today' => $this->today,
                     'incomeData' => $incomeData,
                     'costsData' => $costsData,
+                    'costsType' => $costsType,
                     'nextWeek' => $i
                 ]);
                 $this->tempDate->addDay();
@@ -75,6 +75,6 @@ class Calendar
 
         } while ($this->tempDate->month === $this->today->month);
 
-        return view('calendar.calendar', compact('day','date'));
+        return view('calendar.month', compact('day','date'));
     }
 }

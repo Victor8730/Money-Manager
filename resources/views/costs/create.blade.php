@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <h1 class="mt-4">Create new costs</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -52,12 +51,6 @@
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Description:</strong>
-                            <textarea class="form-control" name="desc" id="desc"></textarea>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

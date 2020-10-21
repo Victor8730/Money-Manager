@@ -16,7 +16,7 @@ class DashboardController extends Controller
     {
         $year = $request->route('year');
         $month = $request->route('month');
-        $setToDay = (!empty($month)) ? Carbon::createFromDate($year, $month) : Carbon::today();
+        $setToDay = (!empty($month) && !empty($year)) ? Carbon::createFromDate($year, $month) : Carbon::today();
         $calendar = (new Calendar())->createCalendar($setToDay);
         $url = parse_url(url()->current());
         $domains = $url['host'];

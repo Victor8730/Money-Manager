@@ -56,6 +56,12 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <strong>Description:</strong>
+                            <textarea class="form-control" name="desc" id="desc"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <strong>Date:</strong>
                             <input type="date" class="form-control datepicker" name="date" id="date">
                         </div>

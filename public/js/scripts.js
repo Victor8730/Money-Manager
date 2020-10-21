@@ -34,7 +34,8 @@
                 confirm: function () {
                     e.currentTarget.submit();
                 },
-                cancel: function () {}
+                cancel: function () {
+                }
             }
         });
     });
@@ -49,4 +50,42 @@
         });
     });
 
+    $('.event').on('show.bs.modal', function (e) {
+        //get data-id attribute of the clicked element
+        let day = $(e.relatedTarget).data('day');
+        $(this).find(".pName").text(day)
+        //$(".confirmAdd #pName").text(day);
+        /* var productName = $(e.relatedTarget).data('product_name');
+
+         $("#delForm").attr('action', 'put your action here with productId');//e.g. 'domainname/products/' + productId*/
+    });
+
+    $(document).on('click', '.income-add', function (event) {
+        event.preventDefault();
+        let href = $(this).data('url');
+        let day = $(this).data('day');
+        let month = $(this).data('month');
+        let target = $(this).data('target');
+        $.ajax({
+            url: href,
+            beforeSend: function () {
+                $('#loader').show();
+            },
+            success: function (result) {
+                $(target).modal("show");
+                $(target + ' .modal-body').html(result).show();
+            },
+            complete: function () {
+                $('#loader').hide();
+            },
+            error: function (jqXHR, testStatus, error) {
+                console.log(error);
+                alert("Page " + href + " cannot open. Error:" + error);
+                $('#loader').hide();
+            },
+            timeout: 8000
+        })
+    });
+
 })(jQuery);
+
