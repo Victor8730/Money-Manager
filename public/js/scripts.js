@@ -19,10 +19,19 @@
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
+
+    /*
+    * Add a nice tooltips for an element with a class tooltip-show or with attribute data-toggle=tooltip
+    *
+    * */
     $(function () {
         $('[data-toggle="tooltip"],.tooltip-show').tooltip({'placement': 'bottom'});
     });
 
+    /*
+    * Delete confirmation
+    * When we submit a form with a class, we check if we want to delete the element exactly
+    * */
     $(".del-item").submit(function (e) {
         e.preventDefault();
         $.confirm({
@@ -40,40 +49,25 @@
         });
     });
 
-    $(function () {
-        $('.datepicker').datepicker({
-            format: 'yyyy-mm-dd',
-            weekStart: 1,
-            daysOfWeekHighlighted: "6,0",
-            autoclose: true,
-            todayHighlight: true,
-        });
-    });
-
-    $('.event').on('show.bs.modal', function (e) {
-        //get data-id attribute of the clicked element
-        let day = $(e.relatedTarget).data('day');
-        $(this).find(".pName").text(day)
-        //$(".confirmAdd #pName").text(day);
-        /* var productName = $(e.relatedTarget).data('product_name');
-
-         $("#delForm").attr('action', 'put your action here with productId');//e.g. 'domainname/products/' + productId*/
-    });
-
-    $(document).on('click', '.income-add', function (event) {
+    /*
+    * Open modal windows after click by class, and add ajax result to modal body
+    * Show the preloader before sending the ajax request, then hide it
+    * */
+    $(document).on('click', '.add-event', function (event) {
         event.preventDefault();
         let href = $(this).data('url');
-        let day = $(this).data('day');
-        let month = $(this).data('month');
+        let date = $(this).data('date');
         let target = $(this).data('target');
+        let info = $(this).data('info');
         $.ajax({
             url: href,
             beforeSend: function () {
                 $('#loader').show();
             },
             success: function (result) {
-                $(target).modal("show");
                 $(target + ' .modal-body').html(result).show();
+                $(target + ' .modal-title').html(info).show();
+                $(target + ' .modal-body .datepicker').val(date);
             },
             complete: function () {
                 $('#loader').hide();
@@ -86,6 +80,5 @@
             timeout: 8000
         })
     });
-
 })(jQuery);
 

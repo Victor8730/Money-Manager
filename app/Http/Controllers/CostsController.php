@@ -17,22 +17,28 @@ class CostsController extends Controller
     public function index()
     {
         $costsType = CostsType::all('name', 'id')->keyBy('id')->toArray();
-        $costs = Costs::latest()->where('user_id', Auth::id())->paginate(5);
+        $costs = Costs::latest()->where('user_id', Auth::id())->paginate(10);
 
         return view('costs.index', compact('costs', 'costsType'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
         $costsType = CostsType::all('name', 'id');
 
-        return view('costs.create', compact('costsType'));
+        if($request->ajax()){
+            return view('costs.form', compact('costsType'));
+        }else{
+            return view('costs.create', compact('costsType'));
+        }
+
     }
 
     /**

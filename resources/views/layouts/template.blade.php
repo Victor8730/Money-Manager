@@ -72,8 +72,9 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div class="small">Logged in:</div>
-                {{ Auth::user()->name }}
+                <div class="small">Logged in: {{ Auth::user()->name }}</div>
+                <div class="small">Ver.: {{env('APP_VERSION')}}</div>
+
             </div>
         </nav>
     </div>
@@ -91,7 +92,7 @@
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid">
                 <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; webpagestudio 2020</div>
+                    <div class="text-muted">Copyright &copy; webpagestudio 2020 ver.</div>
                     <div>
                         <a href="#">menu items</a>
                     </div>
@@ -103,8 +104,6 @@
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>

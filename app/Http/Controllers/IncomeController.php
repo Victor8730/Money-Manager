@@ -17,22 +17,27 @@ class IncomeController extends Controller
     public function index()
     {
         $incomeType = IncomeType::all('name', 'id')->keyBy('id')->toArray();
-        $income = Income::latest()->paginate(5);
+        $income = Income::latest()->where('user_id', Auth::id())->paginate(10);
 
         return view('income.index', compact('income', 'incomeType'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
      * Show the form for creating a new income.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
         $incomeType = IncomeType::all('name', 'id');
 
-        return view('income.create', compact('incomeType'));
+        if ($request->ajax()) {
+            return view('income.form', compact('incomeType'));
+        } else {
+            return view('income.create', compact('incomeType'));
+        }
     }
 
     /**

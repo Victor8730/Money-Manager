@@ -10260,6 +10260,9 @@ body {
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
 }
+.list-scroll{
+
+}
 @media (max-width:575px) {
     .display-4 {
         font-size: 1.5rem;

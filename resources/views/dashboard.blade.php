@@ -14,6 +14,8 @@
                             @endforeach
                         </div>
 
+                        @include('layouts.err')
+
                         {!! $calendar !!}
 
                     </div>
