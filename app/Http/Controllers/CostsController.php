@@ -12,30 +12,50 @@ class CostsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         $costsType = CostsType::all('name', 'id')->keyBy('id')->toArray();
-        $costs = Costs::latest()->where('user_id', Auth::id())->paginate(10);
+        $costs = Costs::latest()->filter($request)->where('user_id', Auth::id())->paginate(10);
 
         return view('costs.index', compact('costs', 'costsType'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * If ajax show a list of expenses by the selected date
+     * Else redirect to 404 page
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse|void
+     */
+    public function list(Request $request)
+    {
+        $costsData = Costs::latest()->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+
+        if ($request->ajax()) {
+            return response()->json(['html' => view('costs.list', compact('costsData'))->render()]);
+        } else {
+            return abort(404);
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * If ajax request encode form to json format
+     *
+     * @param Request $request
+     * @return false|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
     {
         $costsType = CostsType::all('name', 'id');
 
-        if($request->ajax()){
-            return view('costs.form', compact('costsType'));
-        }else{
+        if ($request->ajax()) {
+            return response()->json(['html' => view('costs.form', compact('costsType'))->render()]);
+        } else {
             return view('costs.create', compact('costsType'));
         }
 
@@ -44,7 +64,7 @@ class CostsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -69,7 +89,7 @@ class CostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Costs $cost
+     * @param \App\Models\Costs $cost
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function show(Costs $cost)
@@ -82,7 +102,7 @@ class CostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Costs $cost
+     * @param \App\Models\Costs $cost
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function edit(Costs $cost)
@@ -95,8 +115,8 @@ class CostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Costs $cost
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Costs $cost
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, Costs $cost)
@@ -115,7 +135,7 @@ class CostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Costs  $cost
+     * @param \App\Models\Costs $cost
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      * @throws \Exception
      */

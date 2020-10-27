@@ -11,30 +11,51 @@ class IncomeController extends Controller
 {
     /**
      * Display a listing of the income.
+     * Get a list of records, add data filtering.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $incomeType = IncomeType::all('name', 'id')->keyBy('id')->toArray();
-        $income = Income::latest()->where('user_id', Auth::id())->paginate(10);
+        $income = Income::latest()->filter($request)->where('user_id', Auth::id())->paginate(10);
 
         return view('income.index', compact('income', 'incomeType'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
-     * Show the form for creating a new income.
+     * If ajax show a list of incomes by the selected date
+     * Else redirect to 404 page
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return \Illuminate\Http\JsonResponse|void
+     */
+    public function list(Request $request)
+    {
+        $incomeData = Income::latest()->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+
+        if ($request->ajax()) {
+            return response()->json(['html' => view('income.list', compact('incomeData'))->render()]);
+        } else {
+            return abort(404);
+        }
+    }
+
+    /**
+     * Show the form for creating a new income.
+     * If ajax request encode form to json format
+     *
+     * @param Request $request
+     * @return false|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse
      */
     public function create(Request $request)
     {
         $incomeType = IncomeType::all('name', 'id');
 
         if ($request->ajax()) {
-            return view('income.form', compact('incomeType'));
+            return response()->json(['html' => view('income.form', compact('incomeType'))->render()] );
         } else {
             return view('income.create', compact('incomeType'));
         }

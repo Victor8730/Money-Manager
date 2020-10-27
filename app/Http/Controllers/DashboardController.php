@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Income;
 use Illuminate\Http\Request;
 use App\Models\Calendar;
 use Illuminate\Support\Carbon;

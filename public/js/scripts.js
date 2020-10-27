@@ -53,19 +53,22 @@
     * Open modal windows after click by class, and add ajax result to modal body
     * Show the preloader before sending the ajax request, then hide it
     * */
-    $(document).on('click', '.add-event', function (event) {
+    $(document).on('click', '.event-add, .event-list', function (event) {
         event.preventDefault();
         let href = $(this).data('url');
         let date = $(this).data('date');
         let target = $(this).data('target');
         let info = $(this).data('info');
         $.ajax({
+            type: "GET",
             url: href,
+            data: {date: date},
+            dataType: "json",
             beforeSend: function () {
                 $('#loader').show();
             },
             success: function (result) {
-                $(target + ' .modal-body').html(result).show();
+                $(target + ' .modal-body').html(result.html).show();
                 $(target + ' .modal-title').html(info).show();
                 $(target + ' .modal-body .datepicker').val(date);
             },

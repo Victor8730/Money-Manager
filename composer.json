@@ -6,6 +6,11 @@
         "money-management",
         "laravel"
     ],
+    "authors": [
+        {
+            "name": "Victor Galiuzov"
+        }
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.4",

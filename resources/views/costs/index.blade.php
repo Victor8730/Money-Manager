@@ -10,11 +10,19 @@
     <div class="row">
         <div class="col-lg-12 my-2">
             <div class="pull-left">
-                <a class="btn btn-success tooltip-show" href="{{ route('costs.create') }}" title="Create new costs type">Create <i class="fas fa-plus-circle"></i>
+                <a class="btn btn-success tooltip-show" href="{{ route('costs.create') }}"
+                   title="Create new costs type">Create <i class="fas fa-plus-circle"></i>
                 </a>
+                <button class="btn btn-info tooltip-show" title="Open filter" data-toggle="collapse"
+                        data-target=".collapseFilter" role="button" aria-expanded="false"
+                        aria-controls="collapseFilter">
+                    Filter <i class="fas fa-filter"></i>
+                </button>
             </div>
         </div>
     </div>
+
+    @include('costs.filter')
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
