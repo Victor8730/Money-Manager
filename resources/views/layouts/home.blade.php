@@ -159,7 +159,7 @@
     <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
         <p>&copy; 2020 webpagestudio</p>
-        <p>Build v{{ Illuminate\Foundation\Application::VERSION }}</p>
+        <p>Build v. {{env('APP_VERSION')}}</p>
     </footer>
 </main>
 

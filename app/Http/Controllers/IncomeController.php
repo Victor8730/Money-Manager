@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Income;
 use App\Models\IncomeType;
 use Illuminate\Http\Request;
@@ -10,16 +11,23 @@ use Illuminate\Support\Facades\Auth;
 class IncomeController extends Controller
 {
     /**
+     * Get instance model Income
+     * @var Income
+     */
+    private Income $income;
+
+    /**
      * Var with income type, get instance model
      * @var IncomeType|object
      */
-    protected IncomeType $incomeType;
+    private IncomeType $incomeType;
 
     /**
      * IncomeController constructor.
      */
     public function __construct()
     {
+        $this->income = new Income;
         $this->incomeType = new IncomeType;
     }
 
@@ -45,10 +53,11 @@ class IncomeController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse|void
+     * @throws \Exception
      */
     public function list(Request $request)
     {
-        $incomeData = Income::select()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+        $incomeData = $this->income->getIncomesByDate(new Carbon($request->input('date')));
         $nameType = $this->incomeType->getTypeNameByIncome($incomeData);
 
         if ($request->ajax()) {

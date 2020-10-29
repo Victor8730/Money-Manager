@@ -84,9 +84,9 @@ class CostsType extends Model
             $costsAssociated = (new Costs)->getCostsByType($this);
             $listAssociated = view('errors.associated', ['ul' => $costsAssociated, 'delete' => 'costs']);
 
-            return redirect()->route('income-type.index')->with('errors', 'The type of costs cannot be deleted because there is an associated costs' . $listAssociated);
+            return redirect()->route('costs-type.index')->with('errors', 'The type of costs cannot be deleted because there is an associated costs' . $listAssociated);
         } catch (\Exception $e) {
-            return redirect()->route('income-type.index')->with('errors', 'Something went wrong, the deletion did not happen!');
+            return redirect()->route('costs-type.index')->with('errors', 'Something went wrong, the deletion did not happen!');
         }
     }
 }

@@ -3,26 +3,28 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="card mb-2">
-                    <h4 class="card-header"><span class="d-none d-md-inline">Calendar for</span> {{$setToDay->format('F Y')}}</h4>
+                    <h4 class="card-header"><span
+                            class="d-none d-md-inline">Calendar for</span> {{$setToDay->format('F Y')}}</h4>
                     <div class="card-body">
                         <div class="text-center" role="toolbar" aria-label="Toolbar with button year">
-                                <a href="/dashboard/{{$year-1}}/{{$month}}" class="btn btn-outline-success my-1">
-                                    <i class="fas fa-chevron-left"></i>
-                                    <span class="d-none d-md-inline">Previous year</span>
-                                </a>
-                                <a href="/dashboard/{{$current->format('Y')}}/{{$month}}" class="btn btn-outline-success my-1">
-                                    <span class="d-md-inline">Current year</span>
-                                    <i class="fas fa-calendar-check"></i>
-                                </a>
-                                <a href="/dashboard/{{$year+1}}/{{$month}}" class="btn btn-outline-success my-1">
-                                    <span class="d-none d-md-inline">Next year</span>
-                                    <i class="fas fa-chevron-right"></i>
-                                </a>
+                            <a href="/dashboard/{{$year-1}}/{{$month}}" class="btn btn-outline-success my-1">
+                                <i class="fas fa-chevron-left"></i>
+                                <span class="d-none d-md-inline">Previous year</span>
+                            </a>
+                            <a href="/dashboard/{{$current->format('Y')}}/{{$month}}"
+                               class="btn btn-outline-success my-1">
+                                <span class="d-md-inline">Current year</span>
+                                <i class="fas fa-calendar-check"></i>
+                            </a>
+                            <a href="/dashboard/{{$year+1}}/{{$month}}" class="btn btn-outline-success my-1">
+                                <span class="d-none d-md-inline">Next year</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
                         </div>
                         <div class="text-center">
                             @foreach ( [ 'January','February','March','April','May','June','July ','August','September','October','November','December'] as $item)
                                 <a href="/dashboard/{{$year}}/{{ $loop->index+1 }}"
-                                   class="btn btn-outline-primary my-1">{{ $item }}</a>
+                                   class="btn btn-outline-primary my-1 {{$loop->index+1==$month ? 'active' : null}}">{{ $item }}</a>
                             @endforeach
                         </div>
 

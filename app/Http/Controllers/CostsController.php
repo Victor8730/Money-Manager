@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Costs;
 use App\Models\CostsType;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CostsController extends Controller
 {
+    /**
+     * Get instance model Income
+     * @var Costs
+     */
+    private Costs $costs;
+
     /**
      * Var with costs type, get instance model
      * @var CostsType|object
@@ -20,6 +27,7 @@ class CostsController extends Controller
      */
     public function __construct()
     {
+        $this->costs = new Costs;
         $this->costsType = new CostsType;
     }
 
@@ -31,7 +39,7 @@ class CostsController extends Controller
      */
     public function index(Request $request)
     {
-        $costsType = CostsType::all('name', 'id')->keyBy('id')->toArray();
+        $costsType = $this->costsType->getTypeArray();
         $costs = Costs::latest()->filter($request)->where('user_id', Auth::id())->paginate(10);
 
         return view('costs.index', compact('costs', 'costsType'))
@@ -44,10 +52,11 @@ class CostsController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse|void
+     * @throws \Exception
      */
     public function list(Request $request)
     {
-        $costsData = Costs::latest()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+        $costsData = $this->costs->getCostsByDate(new Carbon($request->input('date')));
         $nameType = $this->costsType->getTypeNameByCosts($costsData);
 
         if ($request->ajax()) {
@@ -66,7 +75,7 @@ class CostsController extends Controller
      */
     public function create(Request $request)
     {
-        $costsType = CostsType::select('name', 'id')->where('user_id', Auth::id())->get();
+        $costsType = $this->costsType->getType();
 
         if ($request->ajax()) {
             return response()->json(['html' => view('costs.form', compact('costsType'))->render()]);
@@ -109,7 +118,7 @@ class CostsController extends Controller
      */
     public function show(Costs $cost)
     {
-        $costsType = CostsType::all('name', 'id')->keyBy('id')->toArray();
+        $costsType = $this->costsType->getTypeArray();
 
         return view('costs.show', compact('cost', 'costsType'));
     }
@@ -122,7 +131,7 @@ class CostsController extends Controller
      */
     public function edit(Costs $cost)
     {
-        $costsType = CostsType::all('name', 'id');
+        $costsType = $this->costsType->getType();
 
         return view('costs.edit', compact('cost', 'costsType'));
     }

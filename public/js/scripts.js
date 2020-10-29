@@ -64,7 +64,7 @@
             data: {date: date},
             dataType: "json",
             beforeSend: function () {
-                $('#loader').show();
+                $('.loader').show();
             },
             success: function (result) {
                 $(target + ' .modal-body').html(result.html).show();
@@ -73,12 +73,12 @@
                 $('.tooltip-show').tooltip({'placement': 'bottom'});
             },
             complete: function () {
-                $('#loader').hide();
+                $('.loader').hide();
             },
             error: function (jqXHR, testStatus, error) {
                 console.log(error);
                 alert("Page " + href + " cannot open. Error:" + error);
-                $('#loader').hide();
+                $('.loader').hide();
             },
             timeout: 8000
         })

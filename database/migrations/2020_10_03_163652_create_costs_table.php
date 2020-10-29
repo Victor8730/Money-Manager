@@ -18,7 +18,7 @@ class CreateCostsTable extends Migration
             $table->foreignId('user_id');
             $table->integer('type');
             $table->text('desc')->nullable();
-            $table->integer('amount');
+            $table->float('amount');
             $table->date('date');
             $table->timestamps();
         });

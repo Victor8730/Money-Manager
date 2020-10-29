@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -60,5 +61,34 @@ class Costs extends Model
         if (!empty($costsType->id)) {
             return parent::all()->where('user_id', Auth::id())->where('type' , $costsType->id);
         }
+    }
+
+    /**
+     * Get all all costs on the specified date
+     *
+     * @param Carbon $date
+     * @return mixed
+     */
+    public function getCostsByDate(Carbon $date):object
+    {
+        return parent::select()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $date)->get();
+    }
+
+    /**
+     * We receive the amount of costs for the specified date
+     *
+     * @param Carbon $date
+     * @return string
+     */
+    public function getAmountsByDate(Carbon $date):string
+    {
+        $costsByDate = $this->getCostsByDate($date);
+        $amounts = 0;
+
+        foreach ($costsByDate as $cost){
+            $amounts += $cost->amount;
+        }
+
+        return number_format($amounts, 2, ',', ' ');
     }
 }

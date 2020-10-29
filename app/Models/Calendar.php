@@ -12,6 +12,10 @@ class Calendar
 
     private object $tempDate;
 
+    private object $income;
+
+    private object $costs;
+
     private int $dayOfWeek;
 
     /**
@@ -20,6 +24,8 @@ class Calendar
      */
     public function __construct()
     {
+        $this->income = new Income();
+        $this->costs = new Costs();
         $this->today = Carbon::today();
         $this->setTempDate();
         $this->setDayOfWeek();
@@ -39,7 +45,7 @@ class Calendar
      */
     private function setTempDate(): void
     {
-        $this->tempDate = Carbon::createFromDate($this->today->year, $this->today->month, 1);
+        $this->tempDate = Carbon::create($this->today->year, $this->today->month, 1);
     }
 
     /**
@@ -69,21 +75,12 @@ class Calendar
 
         do {
             for ($i = 0; $i < 7; $i++) {
-                $incomeData = Income::whereYear('date', $this->tempDate->year)
-                    ->whereMonth('date', $this->tempDate->month)
-                    ->whereDay('date', $this->tempDate->day)
-                    ->get();
-                $costsType = CostsType::all('name', 'id');
-                $costsData = Costs::whereYear('date', $this->tempDate->year)
-                    ->whereMonth('date', $this->tempDate->month)
-                    ->whereDay('date', $this->tempDate->day)
-                    ->get();
+
                 $day .= view('calendar.day', [
                     'tempDate' => $this->tempDate,
                     'today' => $this->today,
-                    'incomeData' => $incomeData,
-                    'costsData' => $costsData,
-                    'costsType' => $costsType,
+                    'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate),
+                    'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate),
                     'nextWeek' => $i
                 ]);
                 $this->tempDate->addDay();

@@ -35,6 +35,7 @@
             </div>
         </li>
     </ul>
+    <div class="loader"></div>
 </nav>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
@@ -48,7 +49,7 @@
                     </a>
                     <div class="sb-sidenav-menu-heading">Settings</div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-wallet"></i></div>
                         Incomes
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -59,7 +60,7 @@
                         </nav>
                     </div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCosts" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-wallet"></i></div>
                         Costs
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
@@ -69,6 +70,10 @@
                             <a class="nav-link {{ Request::is('costs-type*') ? "active" : null }}" href="/costs-type/">Type costs</a>
                         </nav>
                     </div>
+                    <a class="nav-link {{ Request::is('settings/*') ? "active" : null }}" href="/settings">
+                        <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                        Settings
+                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
