@@ -8,8 +8,9 @@
                         <span class="input-group-text" id="basic-addon3">Select type</span>
                     </div>
                     <select class="form-control" name="type">
+                        <option value="">...</option>
                         @foreach ($costsType as $type)
-                            <option value="{{ $type['id'] }}"> {{ $type['name'] }}</option>
+                            <option value="{{ $type['id'] }}" {{ request()->get('type')==$type['id'] ? 'selected' : null }}> {{ $type['name'] }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -10,6 +10,20 @@ use Illuminate\Support\Facades\Auth;
 class CostsController extends Controller
 {
     /**
+     * Var with costs type, get instance model
+     * @var CostsType|object
+     */
+    protected CostsType $costsType;
+
+    /**
+     * CostsController constructor.
+     */
+    public function __construct()
+    {
+        $this->costsType = new CostsType;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -25,7 +39,7 @@ class CostsController extends Controller
     }
 
     /**
-     * If ajax show a list of expenses by the selected date
+     * If ajax show a list of costs by the selected date, order by type
      * Else redirect to 404 page
      *
      * @param Request $request
@@ -33,10 +47,11 @@ class CostsController extends Controller
      */
     public function list(Request $request)
     {
-        $costsData = Costs::latest()->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+        $costsData = Costs::latest()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+        $nameType = $this->costsType->getTypeNameByCosts($costsData);
 
         if ($request->ajax()) {
-            return response()->json(['html' => view('costs.list', compact('costsData'))->render()]);
+            return response()->json(['html' => view('costs.list', compact('costsData','nameType'))->render()]);
         } else {
             return abort(404);
         }
@@ -51,7 +66,7 @@ class CostsController extends Controller
      */
     public function create(Request $request)
     {
-        $costsType = CostsType::all('name', 'id');
+        $costsType = CostsType::select('name', 'id')->where('user_id', Auth::id())->get();
 
         if ($request->ajax()) {
             return response()->json(['html' => view('costs.form', compact('costsType'))->render()]);

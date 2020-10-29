@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\Filter;
+use Illuminate\Support\Facades\Auth;
 
 class Costs extends Model
 {
@@ -46,5 +47,18 @@ class Costs extends Model
     public function scopeFilter(Builder $builder, $request): object
     {
         return (new Filter($request))->filter($builder);
+    }
+
+    /**
+     * Get all costs by type
+     *
+     * @param CostsType $costsType
+     * @return object
+     */
+    public function getCostsByType(CostsType $costsType): object
+    {
+        if (!empty($costsType->id)) {
+            return parent::all()->where('user_id', Auth::id())->where('type' , $costsType->id);
+        }
     }
 }

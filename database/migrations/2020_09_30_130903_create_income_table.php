@@ -14,12 +14,12 @@ class CreateIncomeTable extends Migration
     public function up()
     {
         Schema::create('income', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('id')->primary();
+            $table->foreignId('user_id');
             $table->integer('type');
             $table->text('desc')->nullable();
-            $table->date('date');
             $table->integer('amount');
+            $table->date('date');
             $table->timestamps();
         });
     }

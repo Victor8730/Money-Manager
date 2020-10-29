@@ -4,26 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\CostsType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CostsTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        $costsType = CostsType::latest()->paginate(5);
+        $costsType = CostsType::latest()->where('user_id', Auth::id())->paginate(10);
 
         return view('costs-type.index', compact('costsType'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -33,8 +34,8 @@ class CostsTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -42,8 +43,11 @@ class CostsTypeController extends Controller
             'name' => 'required',
             'desc' => 'required'
         ]);
-
-        CostsType::create($request->all());
+        CostsType::create([
+            'name' => $request->input('name'),
+            'desc' => $request->input('desc'),
+            'user_id' => Auth::id()
+        ]);
 
         return redirect()->route('costs-type.index')
             ->with('success', 'Costs type created successfully.');
@@ -52,8 +56,8 @@ class CostsTypeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CostsType  $costsType
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\CostsType $costsType
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show(CostsType $costsType)
     {
@@ -63,8 +67,8 @@ class CostsTypeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CostsType  $costsType
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\CostsType $costsType
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(CostsType $costsType)
     {
@@ -74,9 +78,9 @@ class CostsTypeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CostsType  $costsType
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\CostsType $costsType
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(Request $request, CostsType $costsType)
     {
@@ -90,21 +94,16 @@ class CostsTypeController extends Controller
             ->with('success', 'Costs type updated successfully');
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the costs type from storage.
+     * After remove send message to session
      *
-     * @param \App\Models\CostsType $costsType
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @param CostsType $costsType
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(CostsType $costsType)
     {
-        try {
-            $costsType->delete();
-        } catch (\Exception $e) {
-        }
-
-        return redirect()->route('costs-type.index')
-            ->with('success', 'Costs type deleted successfully');
+        return $costsType->clean();
     }
 }

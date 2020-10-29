@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class CostsType extends Model
 {
@@ -29,7 +31,62 @@ class CostsType extends Model
     protected $fillable = [
         'name',
         'desc',
+        'user_id',
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * Return name type, with key id cost type, by cost
+     * @param $costs
+     * @return array
+     */
+    public function getTypeNameByCosts(object $costs): array
+    {
+        $name = [];
+
+        foreach ($costs as $cost) {
+            $name[$cost->type] = parent::firstWhere('id', $cost->type)->name;
+        }
+
+        return $name;
+    }
+
+    /**
+     * Get all costs type from user, in format object
+     * @return object
+     */
+    public function getType(): object
+    {
+        return parent::all()->where('user_id', Auth::id());
+    }
+
+    /**
+     * Get all costs type from user, in format array with key by id
+     * @return array
+     */
+    public function getTypeArray(): array
+    {
+        return parent::all()->where('user_id', Auth::id())->keyBy('id')->toArray();
+    }
+
+    /**
+     * Delete cost type, if exist associated cost send error message
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function clean()
+    {
+        try {
+            $this->delete();
+
+            return redirect()->route('costs-type.index')->with('success', 'Deletion completed successfully!');
+        } catch (QueryException $e) {
+            $costsAssociated = (new Costs)->getCostsByType($this);
+            $listAssociated = view('errors.associated', ['ul' => $costsAssociated, 'delete' => 'costs']);
+
+            return redirect()->route('income-type.index')->with('errors', 'The type of costs cannot be deleted because there is an associated costs' . $listAssociated);
+        } catch (\Exception $e) {
+            return redirect()->route('income-type.index')->with('errors', 'Something went wrong, the deletion did not happen!');
+        }
+    }
 }

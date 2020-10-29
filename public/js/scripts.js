@@ -22,7 +22,6 @@
 
     /*
     * Add a nice tooltips for an element with a class tooltip-show or with attribute data-toggle=tooltip
-    *
     * */
     $(function () {
         $('[data-toggle="tooltip"],.tooltip-show').tooltip({'placement': 'bottom'});
@@ -71,6 +70,7 @@
                 $(target + ' .modal-body').html(result.html).show();
                 $(target + ' .modal-title').html(info).show();
                 $(target + ' .modal-body .datepicker').val(date);
+                $('.tooltip-show').tooltip({'placement': 'bottom'});
             },
             complete: function () {
                 $('#loader').hide();

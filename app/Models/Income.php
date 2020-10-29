@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\Filter;
+use Illuminate\Support\Facades\Auth;
 
 class Income extends Model
 {
@@ -38,7 +39,6 @@ class Income extends Model
         'updated_at'
     ];
 
-
     /**
      * @param Builder $builder
      * @param $request
@@ -47,5 +47,18 @@ class Income extends Model
     public function scopeFilter(Builder $builder, $request): object
     {
         return (new Filter($request))->filter($builder);
+    }
+
+    /**
+     * Get all incomes by type
+     *
+     * @param IncomeType $incomeType
+     * @return object
+     */
+    public function getIncomesByType(IncomeType $incomeType): object
+    {
+        if (!empty($incomeType->id)) {
+            return parent::all()->where('user_id', Auth::id())->where('type' , $incomeType->id);
+        }
     }
 }

@@ -1,5 +1,4 @@
- <div class="container-fluid">
-        <h4 class="display-4 mb-4 text-center">{{$date->format('F Y')}}</h4>
+ <div class="container-fluid py-2">
         <div class="row d-none d-sm-flex p-1 bg-dark text-white">
             <h5 class="col-sm p-1 text-center">Sunday</h5>
             <h5 class="col-sm p-1 text-center">Monday</h5>

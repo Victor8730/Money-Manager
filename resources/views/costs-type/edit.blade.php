@@ -18,17 +18,8 @@
         </div>
     </div>
 
+    @include('errors.fields')
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <div class="my-2"><strong>Oops!</strong> There are problems with input fields.</div>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-pencil-alt"></i>
@@ -50,8 +41,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Description:</strong>
-                        <textarea class="form-control" style="height:50px" name="desc"
-                                  placeholder="Description">{{ $costsType->desc }}</textarea>
+                        <textarea class="form-control" name="desc" placeholder="Description">{{ $costsType->desc }}</textarea>
                     </div>
                 </div>
             </div>

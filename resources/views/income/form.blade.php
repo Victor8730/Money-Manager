@@ -1,4 +1,4 @@
-@include('layouts.err')
+@include('errors.fields')
 
 <form action="{{ isset($typeForm) ? route('income.update', $income->id) : route('income.store') }}" method="POST">
 
@@ -18,12 +18,17 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Type income:</strong>
-                <select class="form-control" name="type">
-                    @foreach($incomeType as $type)
-                        <option
-                            value="{{ $type->id }}" {{ isset($typeForm) ? (($type->id == $income->type) ? 'selected' : null) : null}}>{{ $type->name }}</option>
-                    @endforeach
-                </select>
+                <div class="input-group">
+                    <select class="form-control" name="type">
+                        @foreach($incomeType as $type)
+                            <option
+                                value="{{ $type->id }}" {{ isset($typeForm) ? (($type->id == $income->type) ? 'selected' : null) : null}}>{{ $type->name }}</option>
+                        @endforeach
+                    </select>
+                    <div class="input-group-append">
+                        <a href="/income-type/create" class="btn input-group-text" target="_blank">New type</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

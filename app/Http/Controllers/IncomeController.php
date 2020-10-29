@@ -10,15 +10,29 @@ use Illuminate\Support\Facades\Auth;
 class IncomeController extends Controller
 {
     /**
+     * Var with income type, get instance model
+     * @var IncomeType|object
+     */
+    protected IncomeType $incomeType;
+
+    /**
+     * IncomeController constructor.
+     */
+    public function __construct()
+    {
+        $this->incomeType = new IncomeType;
+    }
+
+    /**
      * Display a listing of the income.
-     * Get a list of records, add data filtering.
+     * Get a list of records, add data filtering, sort by latest.
      *
      * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
      */
     public function index(Request $request)
     {
-        $incomeType = IncomeType::all('name', 'id')->keyBy('id')->toArray();
+        $incomeType = $this->incomeType->getTypeArray();
         $income = Income::latest()->filter($request)->where('user_id', Auth::id())->paginate(10);
 
         return view('income.index', compact('income', 'incomeType'))
@@ -26,18 +40,19 @@ class IncomeController extends Controller
     }
 
     /**
-     * If ajax show a list of incomes by the selected date
-     * Else redirect to 404 page
+     * If ajax show a list of incomes by the selected date, order by type
+     * else redirect to 404 page
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse|void
      */
     public function list(Request $request)
     {
-        $incomeData = Income::latest()->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+        $incomeData = Income::select()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $request['date'])->get();
+        $nameType = $this->incomeType->getTypeNameByIncome($incomeData);
 
         if ($request->ajax()) {
-            return response()->json(['html' => view('income.list', compact('incomeData'))->render()]);
+            return response()->json(['html' => view('income.list', compact('incomeData', 'nameType'))->render()]);
         } else {
             return abort(404);
         }
@@ -52,10 +67,10 @@ class IncomeController extends Controller
      */
     public function create(Request $request)
     {
-        $incomeType = IncomeType::all('name', 'id');
+        $incomeType = $this->incomeType->getType();
 
         if ($request->ajax()) {
-            return response()->json(['html' => view('income.form', compact('incomeType'))->render()] );
+            return response()->json(['html' => view('income.form', compact('incomeType'))->render()]);
         } else {
             return view('income.create', compact('incomeType'));
         }
@@ -76,10 +91,10 @@ class IncomeController extends Controller
         ]);
 
         Income::create([
-            'type' => $request['type'],
-            'amount' => $request['amount'],
-            'date' => $request['date'],
-            'desc' => $request['desc'],
+            'type' => $request->input('type'),
+            'amount' => $request->input('amount'),
+            'date' => $request->input('date'),
+            'desc' => $request->input('desc'),
             'user_id' => Auth::id()
         ]);
 
@@ -95,7 +110,7 @@ class IncomeController extends Controller
      */
     public function show(Income $income)
     {
-        $incomeType = IncomeType::all('name', 'id')->keyBy('id')->toArray();
+        $incomeType = $this->incomeType->getTypeArray();
 
         return view('income.show', compact('income', 'incomeType'));
     }
@@ -108,7 +123,7 @@ class IncomeController extends Controller
      */
     public function edit(Income $income)
     {
-        $incomeType = IncomeType::all('name', 'id');
+        $incomeType = $this->incomeType->getType();
 
         return view('income.edit', compact('income', 'incomeType'));
     }

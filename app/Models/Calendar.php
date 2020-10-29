@@ -14,6 +14,10 @@ class Calendar
 
     private int $dayOfWeek;
 
+    /**
+     * Calendar constructor.
+     * Initializes the required variables for the calendar
+     */
     public function __construct()
     {
         $this->today = Carbon::today();
@@ -30,16 +34,28 @@ class Calendar
         $this->today = $today;
     }
 
+    /**
+     * Sets temp date
+     */
     private function setTempDate(): void
     {
         $this->tempDate = Carbon::createFromDate($this->today->year, $this->today->month, 1);
     }
 
+    /**
+     * Sets the day of the week
+     */
     private function setDayOfWeek(): void
     {
         $this->dayOfWeek = $this->tempDate->dayOfWeek;
     }
 
+    /**
+     * Generating a calendar display
+     *
+     * @param Carbon $date
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function createCalendar(Carbon $date)
     {
         $this->setToday($date);
@@ -75,6 +91,6 @@ class Calendar
 
         } while ($this->tempDate->month === $this->today->month);
 
-        return view('calendar.month', compact('day','date'));
+        return view('calendar.month', compact('day'));
     }
 }

@@ -14,9 +14,10 @@ class CreateIncomeTypeTable extends Migration
     public function up()
     {
         Schema::create('income_type', function (Blueprint $table) {
-            $table->id();
+            $table->integer('id')->primary();
+            $table->foreignId('user_id');
             $table->string('name',255);
-            $table->string('desc',500);
+            $table->string('desc',500)->nullable();
             $table->timestamps();
         });
     }

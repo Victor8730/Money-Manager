@@ -16,11 +16,8 @@
         </div>
     </div>
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
+    @include('errors.session')
+
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table mr-1"></i>
