@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class CostsController extends Controller
 {
     /**
-     * Get instance model Income
+     * Get instance model Costs
      * @var Costs
      */
     private Costs $costs;

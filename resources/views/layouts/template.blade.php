@@ -47,7 +47,7 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <div class="sb-sidenav-menu-heading">Settings</div>
+                    <div class="sb-sidenav-menu-heading">Customization</div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-wallet"></i></div>
                         Incomes
@@ -71,7 +71,7 @@
                         </nav>
                     </div>
                     <a class="nav-link {{ Request::is('settings/*') ? "active" : null }}" href="/settings">
-                        <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                         Settings
                     </a>
                 </div>
