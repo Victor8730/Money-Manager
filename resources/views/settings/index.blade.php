@@ -2,15 +2,17 @@
 
 @section('content')
 
-    @include('errors.session')
     <div class="py-12">
+        @include('errors.session')
         <div class="card mb-2">
             <h4 class="card-header">
                 <i class="fas fa-cogs mr-1"></i>
                 Settings
             </h4>
             <div class="card-body">
-                <form>
+                <form action="{{ route('settings.update', $user->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
                     <div class="form-group">
                         <ul class="list-group">
                             @foreach ($settings as $key=>$setting)
@@ -20,7 +22,7 @@
                                             {{ucfirst($setting['name'])}}
                                         </label>
                                         <div>
-                                            <select class="form-control" id="{{$key}}-{{$setting['key']}}" name="{{$key}}">
+                                            <select class="form-control" id="{{$key}}-{{$setting['key']}}" name="{{$setting['key']}}">
                                                 @foreach($setting['data'] as $id=>$val)
                                                     <option value="{{$id}}">{{$val}}</option>
                                                 @endforeach

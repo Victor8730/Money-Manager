@@ -14,7 +14,17 @@ class SettingsTableSeeder  extends Seeder
             'id' => 1,
             'key' => 'currency',
             'name' => 'Currency',
-            'value' => 'UAH',
+            'notice' => '',
+            'value' => '{"1": "USD","2": "UAH","3": "EUR"}',
+            'created_at' => now(),
+        ]);
+
+        DB::table('settings')->insert([
+            'id' => 2,
+            'key' => 'format',
+            'name' => 'Number format',
+            'notice' => '',
+            'value' => '{"1": "English","2": "Francais","3": "Usual"}',
             'created_at' => now(),
         ]);
     }
