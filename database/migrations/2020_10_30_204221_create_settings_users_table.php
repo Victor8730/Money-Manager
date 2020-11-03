@@ -16,7 +16,7 @@ class CreateSettingsUsersTable extends Migration
         Schema::create('settings_users', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('setting_id')->unsigned();
             $table->foreign('setting_id')->references('id')->on('settings');
             $table->text('value');

@@ -15,16 +15,16 @@
                     @method('PUT')
                     <div class="form-group">
                         <ul class="list-group">
-                            @foreach ($settings as $key=>$setting)
+                            @foreach ($settings as $keySetting=>$setting)
                                 <li class="list-group-item">
                                     @if(is_array($setting))
-                                        <label for="{{$key}}-{{$setting['key']}}" class="h5">
+                                        <label for="{{$keySetting}}-{{$setting['key']}}" class="h5">
                                             {{ucfirst($setting['name'])}}
                                         </label>
                                         <div>
-                                            <select class="form-control" id="{{$key}}-{{$setting['key']}}" name="{{$setting['key']}}">
+                                            <select class="form-control" id="{{$keySetting}}-{{$setting['key']}}" name="settings[{{$keySetting}}]">
                                                 @foreach($setting['data'] as $id=>$val)
-                                                    <option value="{{$id}}">{{$val}}</option>
+                                                    <option value="{{$id}}" {{ ($id == $settingsUser[$keySetting]['value']) ? 'selected' : null}}>{{$val}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

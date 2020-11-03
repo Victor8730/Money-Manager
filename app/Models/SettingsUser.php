@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SettingsUser extends Model
 {
@@ -41,12 +42,21 @@ class SettingsUser extends Model
      */
     protected $hidden = [];
 
-    public function updateSettings(User $user, Request $request, SettingsUser $settingsUser){
-//        SettingsUser::update([
-//            'user_id' => $user->id,
-//            'setting_id' => $setting->id,
-//            'value' => $request
-//        ])->where('user_id', $user->id);
+    /**
+     * Get all settings by user and return in array with key by setting_id
+     *
+     * @return SettingsUser[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getSettingsUserArray()
+    {
+        return $this->all()->where('user_id', Auth::id())->keyBy('setting_id')->toArray();
+    }
+
+    public function updateSettingsUser(Request $request)
+    {
+        foreach ($request['settings'] as $key => $setting) {
+            $this->where('user_id', Auth::id())->where('setting_id', $key)->update(['value' => $setting]);
+        }
     }
 
     /**

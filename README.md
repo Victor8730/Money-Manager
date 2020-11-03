@@ -7,3 +7,4 @@ Accounting for cash, with reports and charts
 + Run command update composer `composer update`
 + Rename a file `.env.example` to `.env` and change config setting
 + Run command migration `php artisan migrate`
++ Run command `php artisan db:seed`

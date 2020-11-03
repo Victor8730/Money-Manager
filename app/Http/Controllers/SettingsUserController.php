@@ -17,11 +17,18 @@ class SettingsUserController extends Controller
     protected Settings $settings;
 
     /**
+     * Var with settings user, get instance model
+     * @var Settings|object
+     */
+    protected SettingsUser $settingsUser;
+
+    /**
      * CostsController constructor.
      */
     public function __construct()
     {
         $this->settings = new Settings();
+        $this->settingsUser = new SettingsUser();
     }
 
     /**
@@ -32,9 +39,10 @@ class SettingsUserController extends Controller
     public function index()
     {
         $settings = $this->settings->getSettingsArray();
+        $settingsUser = $this->settingsUser->getSettingsUserArray();
         $user = Auth::user();
 
-        return view('settings.index', compact('settings', 'user'));
+        return view('settings.index', compact('settings', 'user', 'settingsUser'));
     }
 
     /**
@@ -50,7 +58,7 @@ class SettingsUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -61,7 +69,7 @@ class SettingsUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SettingsUser  $settingsUser
+     * @param \App\Models\SettingsUser $settingsUser
      * @return \Illuminate\Http\Response
      */
     public function show(SettingsUser $settingsUser)
@@ -72,7 +80,7 @@ class SettingsUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\SettingsUser  $settingsUser
+     * @param \App\Models\SettingsUser $settingsUser
      * @return \Illuminate\Http\Response
      */
     public function edit(SettingsUser $settingsUser)
@@ -84,14 +92,12 @@ class SettingsUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\SettingsUser $settingsUser
      * @param User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(Request $request, SettingsUser $settingsUser, User $user)
+    public function update(Request $request)
     {
-
-        $settingsUser->updateSettings($user, $request, $settingsUser);
+        $this->settingsUser->updateSettingsUser($request);
 
         return redirect()->route('settings.index')->with('success', 'Settings updated successfully');
     }
@@ -99,7 +105,7 @@ class SettingsUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SettingsUser  $settingsUser
+     * @param \App\Models\SettingsUser $settingsUser
      * @return \Illuminate\Http\Response
      */
     public function destroy(SettingsUser $settingsUser)

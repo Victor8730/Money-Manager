@@ -27,5 +27,14 @@ class SettingsTableSeeder  extends Seeder
             'value' => '{"1": "English","2": "Francais","3": "Usual"}',
             'created_at' => now(),
         ]);
+
+        DB::table('settings')->insert([
+            'id' => 3,
+            'key' => 'template',
+            'name' => 'Visual skin of the program',
+            'notice' => '',
+            'value' => '{"1": "White-Gray"}',
+            'created_at' => now(),
+        ]);
     }
 }

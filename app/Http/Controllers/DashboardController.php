@@ -23,7 +23,8 @@ class DashboardController extends Controller
      *
      * Initializes the calendar
      */
-    public function __construct(){
+    public function __construct()
+    {
         $this->currentCalendar = new Calendar();
     }
 
@@ -35,6 +36,6 @@ class DashboardController extends Controller
         $setToDay = Carbon::createFromDate($year, $month);
         $calendar = $this->currentCalendar->createCalendar($setToDay);
 
-        return view('dashboard', compact('calendar','year','month','current', 'setToDay'));
+        return view('dashboard', compact('calendar', 'year', 'month', 'current', 'setToDay'));
     }
 }
