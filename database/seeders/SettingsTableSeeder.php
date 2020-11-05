@@ -24,7 +24,7 @@ class SettingsTableSeeder  extends Seeder
             'key' => 'format',
             'name' => 'Number format',
             'notice' => '',
-            'value' => '{"1": "English","2": "Francais","3": "Usual"}',
+            'value' => '{"1": "English","2": "Francais"}',
             'created_at' => now(),
         ]);
 

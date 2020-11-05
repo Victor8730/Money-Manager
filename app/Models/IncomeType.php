@@ -47,7 +47,7 @@ class IncomeType extends Model
         $name = [];
 
         foreach ($incomes as $income) {
-            $name[$income->type] = parent::firstWhere('id', $income->type)->name;
+            $name[$income->type] = $this->firstWhere('id', $income->type)->name;
         }
 
         return $name;
@@ -59,7 +59,7 @@ class IncomeType extends Model
      */
     public function getType(): object
     {
-        return parent::all()->where('user_id', Auth::id());
+        return $this->all()->where('user_id', Auth::id());
     }
 
     /**
@@ -68,7 +68,7 @@ class IncomeType extends Model
      */
     public function getTypeArray(): array
     {
-        return parent::all()->where('user_id', Auth::id())->keyBy('id')->toArray();
+        return $this->all()->where('user_id', Auth::id())->keyBy('id')->toArray();
     }
 
     /**

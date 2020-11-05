@@ -23,8 +23,8 @@
                                         </label>
                                         <div>
                                             <select class="form-control" id="{{$keySetting}}-{{$setting['key']}}" name="settings[{{$keySetting}}]">
-                                                @foreach($setting['data'] as $id=>$val)
-                                                    <option value="{{$id}}" {{ ($id == $settingsUser[$keySetting]['value']) ? 'selected' : null}}>{{$val}}</option>
+                                                @foreach($setting['data'] as $num=>$val)
+                                                    <option value="{{$num}}" {{ ($num == $settingsUser[$keySetting]['value']) ? 'selected' : null}}>{{$val}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

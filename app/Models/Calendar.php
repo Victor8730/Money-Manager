@@ -16,6 +16,8 @@ class Calendar
 
     private object $costs;
 
+    private $settings;
+
     private int $dayOfWeek;
 
     /**
@@ -26,6 +28,7 @@ class Calendar
     {
         $this->income = new Income();
         $this->costs = new Costs();
+        $this->settings = new SettingsUser();
         $this->today = Carbon::today();
         $this->setTempDate();
         $this->setDayOfWeek();
@@ -67,6 +70,7 @@ class Calendar
         $this->setToday($date);
         $this->setTempDate();
         $this->setDayOfWeek();
+        $settings = $this->settings->getSettingsUser();
         $day = '';
 
         for ($i = 0; $i < $this->dayOfWeek; $i++) {
@@ -79,9 +83,10 @@ class Calendar
                 $day .= view('calendar.day', [
                     'tempDate' => $this->tempDate,
                     'today' => $this->today,
-                    'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate),
-                    'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate),
-                    'nextWeek' => $i
+                    'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate, $settings['format']['value']),
+                    'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate, $settings['format']['value']),
+                    'nextWeek' => $i,
+                    'settings' => $settings
                 ]);
                 $this->tempDate->addDay();
             }

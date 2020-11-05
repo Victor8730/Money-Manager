@@ -9,7 +9,7 @@
     <div class="row">
         <div class="text-center col-md-12 col-lg-12">
             <span class="d-block text-success">Income</span>
-            <span class="d-block text-success">+{{$amountsIncomeByDay}}</span>
+            <span class="d-block text-success">+{{$amountsIncomeByDay}} {{$settings['currency']['value-text']}}</span>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" title="Add income" class="btn btn-outline-secondary p-1 tooltip-show event-add"
                         data-date="{{$tempDate->format('Y-m-d')}}"
@@ -38,7 +38,7 @@
     <div class="row">
         <div class="text-center col-md-12 col-lg-12">
             <span class="d-block text-danger">Costs</span>
-            <span class="d-block text-danger">-{{$amountsCostsByDay}}</span>
+            <span class="d-block text-danger">-{{$amountsCostsByDay}} {{$settings['currency']['value-text']}}</span>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <button type="button" title="Add costs" class="btn btn-outline-secondary p-1 tooltip-show event-add"
                         data-date="{{$tempDate->format('Y-m-d')}}"

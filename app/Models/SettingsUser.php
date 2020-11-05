@@ -43,19 +43,57 @@ class SettingsUser extends Model
     protected $hidden = [];
 
     /**
+     * Get the settings record associated with the setting user.
+     */
+    public function setting()
+    {
+        return $this->belongsTo('App\Models\Settings');
+    }
+
+    /**
      * Get all settings by user and return in array with key by setting_id
+     * Used in setting page
      *
      * @return SettingsUser[]|\Illuminate\Database\Eloquent\Collection
      */
-    public function getSettingsUserArray()
+    public function getSettingsUserArray(): array
     {
-        return $this->all()->where('user_id', Auth::id())->keyBy('setting_id')->toArray();
+        return $this->all()
+            ->where('user_id', Auth::id())
+            ->keyBy('setting_id')
+            ->toArray();
     }
 
+    /**
+     * Get all setting user with key and name
+     * @return array
+     */
+    public function getSettingsUser(): array
+    {
+        $settingsUser = $this->all()->where('user_id', Auth::id());
+        $valueSettings = [];
+
+        foreach ($settingsUser as $settingUser) {
+            $setting = $this->find($settingUser->id)->setting;
+            $settingArrayValue = json_decode($setting->value, true);
+            $valueSettings[$setting->key]['value-text'] = $settingArrayValue[$settingUser->value];
+            $valueSettings[$setting->key]['value'] = $settingUser->value;
+        }
+
+        return $valueSettings;
+    }
+
+    /**
+     * Update all settings for user, used in setting page
+     *
+     * @param Request $request
+     */
     public function updateSettingsUser(Request $request)
     {
         foreach ($request['settings'] as $key => $setting) {
-            $this->where('user_id', Auth::id())->where('setting_id', $key)->update(['value' => $setting]);
+            $this->where('user_id', Auth::id())
+                ->where('setting_id', $key)
+                ->update(['value' => $setting]);
         }
     }
 

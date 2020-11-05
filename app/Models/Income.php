@@ -59,7 +59,9 @@ class Income extends Model
     public function getIncomesByType(IncomeType $incomeType): object
     {
         if (!empty($incomeType->id)) {
-            return parent::all()->where('user_id', Auth::id())->where('type', $incomeType->id);
+            return $this->all()
+                ->where('user_id', Auth::id())
+                ->where('type', $incomeType->id);
         }
     }
 
@@ -69,26 +71,31 @@ class Income extends Model
      * @param Carbon $date
      * @return mixed
      */
-    public function getIncomesByDate(Carbon $date):object
+    public function getIncomesByDate(Carbon $date): object
     {
-        return parent::select()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $date)->get();
+        return $this->select()
+            ->orderBy('type', 'asc')
+            ->where('user_id', Auth::id())
+            ->whereDate('date', $date)
+            ->get();
     }
 
     /**
      * We receive the amount of income for the specified date
      *
      * @param Carbon $date
+     * @param string $format
      * @return string
      */
-    public function getAmountsByDate(Carbon $date):string
+    public function getAmountsByDate(Carbon $date, string $format): string
     {
         $incomesByDate = $this->getIncomesByDate($date);
         $amounts = 0;
 
-        foreach ($incomesByDate as $income){
+        foreach ($incomesByDate as $income) {
             $amounts += $income->amount;
         }
 
-        return number_format($amounts, 2, ',', ' ');
+        return ($format == 1) ? number_format($amounts) : number_format($amounts, 2, ',', ' ');
     }
 }
