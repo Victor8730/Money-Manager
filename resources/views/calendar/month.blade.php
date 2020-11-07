@@ -9,7 +9,7 @@
             <h5 class="col-sm p-1 text-center">Saturday</h5>
         </div>
         <div class="row border border-right-0 border-bottom-0">
-        {!! $day !!}
+        {!! $days !!}
         </div>
  </div>
 

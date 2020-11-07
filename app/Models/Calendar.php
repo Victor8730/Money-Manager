@@ -8,17 +8,19 @@ use Illuminate\Support\Carbon;
 
 class Calendar
 {
-    private object $today;
+    private Carbon $today;
 
-    private object $tempDate;
+    private Carbon $tempDate;
 
-    private object $income;
+    private Income $income;
 
-    private object $costs;
+    private Costs $costs;
 
-    private $settings;
+    private SettingsUser $settings;
 
     private int $dayOfWeek;
+
+    public array $dayInfo;
 
     /**
      * Calendar constructor.
@@ -60,10 +62,24 @@ class Calendar
     }
 
     /**
-     * Generating a calendar display
+     * Filling the data array to display the calendar
+     *
+     * @param array $info
+     */
+    private function setDayInfo(array $info)
+    {
+        $this->dayInfo[] = $info;
+    }
+
+
+    /**
+     * Move from the current date to the beginning of the week using subDay ().
+     * Then we spin each week until the month of the end of the week coincides with the month of the current date
+     * We clone the "tempDate" of the date because the object is transmitted by reference
+     * and in the array we get the last instance of the object
      *
      * @param Carbon $date
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return array
      */
     public function createCalendar(Carbon $date)
     {
@@ -71,7 +87,6 @@ class Calendar
         $this->setTempDate();
         $this->setDayOfWeek();
         $settings = $this->settings->getSettingsUser();
-        $day = '';
 
         for ($i = 0; $i < $this->dayOfWeek; $i++) {
             $this->tempDate->subDay();
@@ -79,9 +94,8 @@ class Calendar
 
         do {
             for ($i = 0; $i < 7; $i++) {
-
-                $day .= view('calendar.day', [
-                    'tempDate' => $this->tempDate,
+                $this->setDayInfo([
+                    'tempDate' => clone $this->tempDate,
                     'today' => $this->today,
                     'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate, $settings['format']['value']),
                     'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate, $settings['format']['value']),
@@ -90,9 +104,8 @@ class Calendar
                 ]);
                 $this->tempDate->addDay();
             }
-
         } while ($this->tempDate->month === $this->today->month);
 
-        return view('calendar.month', compact('day'));
+        return $this->dayInfo;
     }
 }
