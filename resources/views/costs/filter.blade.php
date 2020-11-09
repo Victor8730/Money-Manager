@@ -1,4 +1,4 @@
-<div class="col-lg-12 my-2 collapse collapseFilter {{ request()->get('type') ? 'show' : null }}">
+<div class="col-lg-12 my-2 collapse collapseFilter {{ request()->get('type_id') ? 'show' : null }}">
     <div class="card">
         <h5 class="card-header">Filter</h5>
         <div class="card-body">
@@ -7,10 +7,10 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon3">Select type</span>
                     </div>
-                    <select class="form-control" name="type">
+                    <select class="form-control" name="type_id">
                         <option value="">...</option>
                         @foreach ($costsType as $type)
-                            <option value="{{ $type['id'] }}" {{ request()->get('type')==$type['id'] ? 'selected' : null }}> {{ $type['name'] }}</option>
+                            <option value="{{ $type['id'] }}" {{ request()->get('type_id')==$type['id'] ? 'selected' : null }}> {{ $type['name'] }}</option>
                         @endforeach
                     </select>
                 </div>

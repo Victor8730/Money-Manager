@@ -13,7 +13,7 @@ class CreateIncomeTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('income_type', function (Blueprint $table) {
+        Schema::create('income_types', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

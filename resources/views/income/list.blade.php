@@ -4,7 +4,7 @@
             <a href="/income/{{$income->id}}/edit"
                class="tooltip-show d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-success text-white"
                title="{{$income->desc}}">
-                {{$income->amount}} - {{$nameType[$income->type]}}
+                {{$income->amount}} - {{$nameType[$income->type_id]}}
             </a>
         </li>
     @empty

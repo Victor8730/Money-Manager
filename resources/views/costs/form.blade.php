@@ -19,10 +19,10 @@
             <div class="form-group">
                 <strong>Type costs:</strong>
                 <div class="input-group">
-                    <select class="form-control" name="type">
+                    <select class="form-control" name="type_id">
                         @foreach($costsType as $type)
                             <option
-                                value="{{ $type->id }}" {{ isset($typeForm) ? (($type->id == $cost->type) ? 'selected' : null) : null}}>{{ $type->name }}</option>
+                                value="{{ $type->id }}" {{ isset($typeForm) ? (($type->id == $cost->type_id) ? 'selected' : null) : null}}>{{ $type->name }}</option>
                         @endforeach
                     </select>
                     <div class="input-group-append">

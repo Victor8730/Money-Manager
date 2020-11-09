@@ -17,8 +17,8 @@ class CreateCostsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('type')->unsigned();
-            $table->foreign('type')->references('id')->on('costs_type');
+            $table->integer('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('costs_types');
             $table->text('desc')->nullable();
             $table->float('amount');
             $table->date('date');

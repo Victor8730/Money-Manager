@@ -94,13 +94,13 @@ class IncomeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required',
+            'type_id' => 'required',
             'amount' => 'required',
             'date' => 'required'
         ]);
 
         Income::create([
-            'type' => $request->input('type'),
+            'type_id' => $request->input('type_id'),
             'amount' => $request->input('amount'),
             'date' => $request->input('date'),
             'desc' => $request->input('desc'),
@@ -148,7 +148,7 @@ class IncomeController extends Controller
     {
         $request->validate([
             'amount' => 'required',
-            'type' => 'required',
+            'type_id' => 'required',
             'date' => 'required',
         ]);
         $income->update($request->all());

@@ -13,12 +13,12 @@ class CreateIncomeTable extends Migration
      */
     public function up()
     {
-        Schema::create('income', function (Blueprint $table) {
+        Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('type')->unsigned();
-            $table->foreign('type')->references('id')->on('income_type');
+            $table->integer('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('income_types');
             $table->text('desc')->nullable();
             $table->float('amount');
             $table->date('date');

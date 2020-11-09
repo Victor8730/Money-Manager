@@ -53,7 +53,7 @@
                     <tbody>
                     @foreach ($income as $inc)
                         <tr>
-                            <td>{{ $incomeType[$inc->type]['name'] }}</td>
+                            <td>{{ $incomeType[$inc->type_id]['name'] }}</td>
                             <td>{{ $inc->amount }}</td>
                             <td>{{ date_format(new DateTime($inc->date), 'jS M Y') }}</td>
                             <td>

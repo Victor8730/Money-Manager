@@ -16,7 +16,7 @@ class IncomeType extends Model
      * The name of the table in the database
      * @var string
      */
-    protected $table = 'income_type';
+    protected $table = 'income_types';
 
     /**
      *  Indicates if the model has update and creation timestamps.
@@ -38,6 +38,15 @@ class IncomeType extends Model
     ];
 
     /**
+     * Get income types from income
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incomes()
+    {
+        return $this->hasMany(Income::class, 'type_id');
+    }
+
+    /**
      * Return name type, with key id income type, by income
      * @param $incomes
      * @return array
@@ -47,7 +56,8 @@ class IncomeType extends Model
         $name = [];
 
         foreach ($incomes as $income) {
-            $name[$income->type] = $this->firstWhere('id', $income->type)->name;
+            $income = Income::find($income->id);
+            $name[$income->type->id] = $income->type->name;
         }
 
         return $name;
@@ -59,7 +69,9 @@ class IncomeType extends Model
      */
     public function getType(): object
     {
-        return $this->all()->where('user_id', Auth::id());
+        return $this
+            ->all()
+            ->where('user_id', Auth::id());
     }
 
     /**
@@ -68,7 +80,11 @@ class IncomeType extends Model
      */
     public function getTypeArray(): array
     {
-        return $this->all()->where('user_id', Auth::id())->keyBy('id')->toArray();
+        return $this
+            ->all()
+            ->where('user_id', Auth::id())
+            ->keyBy('id')
+            ->toArray();
     }
 
     /**
@@ -82,8 +98,8 @@ class IncomeType extends Model
 
             return redirect()->route('income-type.index')->with('success', 'Deletion completed successfully!');
         } catch (QueryException $e) {
-            $incomeAssociated = (new Income)->getIncomesByType($this);
-            $listAssociated = view('errors.associated', ['ul' => $incomeAssociated, 'delete' => 'incomes']);
+            $incomeAssociated = IncomeType::find($this->id)->incomes;
+            $listAssociated = view('errors.associated', ['ul' => $incomeAssociated, 'delete' => 'income']);
 
             return redirect()->route('income-type.index')->with('errors', 'The type of income cannot be deleted because there is an associated income' . $listAssociated);
         } catch (\Exception $e) {

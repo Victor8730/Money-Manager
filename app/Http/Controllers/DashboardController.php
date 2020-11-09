@@ -35,14 +35,27 @@ class DashboardController extends Controller
         $current = Carbon::now();
         $setToDay = Carbon::createFromDate($year, $month);
         $dayData = $this->currentCalendar->createCalendar($setToDay);
+        $maxIncome = $maxCosts = 0;
         $days = '';
 
         foreach ($dayData as $day) {
             $days .= view('calendar.day', $day);
+            $maxIncome = ($day['amountsIncomeByDay'] > $maxIncome) ? $day['amountsIncomeByDay'] : $maxIncome;
+            $maxCosts = ($day['amountsCostsByDay'] > $maxCosts) ? $day['amountsCostsByDay'] : $maxCosts;
         }
 
         $calendar = view('calendar.month', compact('days'));
 
-        return view('dashboard', compact('calendar', 'year', 'month', 'current', 'setToDay'));
+        return view('dashboard', compact(
+                'calendar',
+                'year',
+                'month',
+                'current',
+                'setToDay',
+                'dayData',
+                'maxIncome',
+                'maxCosts'
+            )
+        );
     }
 }

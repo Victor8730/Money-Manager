@@ -32,13 +32,21 @@ class Costs extends Model
      */
     protected $fillable = [
         'user_id',
-        'type',
+        'type_id',
         'desc',
         'amount',
         'date',
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function type()
+    {
+        return $this->belongsTo(CostsType::class);
+    }
 
     /**
      * @param Builder $builder
@@ -51,19 +59,6 @@ class Costs extends Model
     }
 
     /**
-     * Get all costs by type
-     *
-     * @param CostsType $costsType
-     * @return object
-     */
-    public function getCostsByType(CostsType $costsType): object
-    {
-        if (!empty($costsType->id)) {
-            return $this->all()->where('user_id', Auth::id())->where('type', $costsType->id);
-        }
-    }
-
-    /**
      * Get all all costs on the specified date
      *
      * @param Carbon $date
@@ -71,25 +66,22 @@ class Costs extends Model
      */
     public function getCostsByDate(Carbon $date): object
     {
-        return $this->select()->orderBy('type', 'asc')->where('user_id', Auth::id())->whereDate('date', $date)->get();
+        return $this
+            ->select()
+            ->orderBy('type_id', 'asc')
+            ->where('user_id', Auth::id())
+            ->whereDate('date', $date)
+            ->get();
     }
 
     /**
      * We receive the amount of costs for the specified date
      *
      * @param Carbon $date
-     * @param string $format
      * @return string
      */
-    public function getAmountsByDate(Carbon $date, string $format): string
+    public function getAmountsByDate(Carbon $date): string
     {
-        $costsByDate = $this->getCostsByDate($date);
-        $amounts = 0;
-
-        foreach ($costsByDate as $cost) {
-            $amounts += $cost->amount;
-        }
-
-        return ($format == 1) ? number_format($amounts) : number_format($amounts, 2, ',', ' ');
+        return $this->getCostsByDate($date)->sum('amount');
     }
 }

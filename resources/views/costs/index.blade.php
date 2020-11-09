@@ -53,7 +53,7 @@
                     <tbody>
                     @foreach ($costs as $cost)
                         <tr>
-                            <td>{{ $costsType[$cost->type]['name'] }}</td>
+                            <td>{{ $costsType[$cost->type_id]['name'] }}</td>
                             <td>{{ $cost->amount }}</td>
                             <td>{{ date_format(new DateTime($cost->date), 'jS M Y') }}</td>
                             <td>

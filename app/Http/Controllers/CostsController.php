@@ -94,13 +94,13 @@ class CostsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'type' => 'required',
+            'type_id' => 'required',
             'amount' => 'required',
             'date' => 'required'
         ]);
 
         Costs::create([
-            'type' => $request['type'],
+            'type_id' => $request['type_id'],
             'amount' => $request['amount'],
             'date' => $request['date'],
             'user_id' => Auth::id()
@@ -147,7 +147,7 @@ class CostsController extends Controller
     {
         $request->validate([
             'amount' => 'required',
-            'type' => 'required',
+            'type_id' => 'required',
             'date' => 'required',
         ]);
         $cost->update($request->all());

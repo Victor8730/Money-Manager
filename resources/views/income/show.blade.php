@@ -23,7 +23,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 m-2">
                 <div class="form-group">
                     <strong>Type:</strong>
-                    {{ $incomeType[$income->type]['name'] }}
+                    {{ $incomeType[$income->type_id]['name'] }}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 m-2">

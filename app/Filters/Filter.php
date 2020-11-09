@@ -14,7 +14,7 @@ class Filter extends AbstractFilter
      * @var array|string[]
      */
     protected array $filters = [
-        'type' => TypeFilter::class,
+        'type_id' => TypeFilter::class,
         'date' => DateFilter::class
     ];
 }

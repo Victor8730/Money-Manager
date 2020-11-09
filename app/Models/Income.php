@@ -17,7 +17,7 @@ class Income extends Model
      * The name of the table in the database
      * @var string
      */
-    protected $table = 'income';
+    protected $table = 'incomes';
 
     /**
      * Indicates if the model has update and creation timestamps.
@@ -32,13 +32,21 @@ class Income extends Model
      */
     protected $fillable = [
         'user_id',
-        'type',
+        'type_id',
         'desc',
         'amount',
         'date',
         'created_at',
         'updated_at'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function type()
+    {
+        return $this->belongsTo(IncomeType::class);
+    }
 
     /**
      * @param Builder $builder
@@ -51,21 +59,6 @@ class Income extends Model
     }
 
     /**
-     * Get all incomes by type
-     *
-     * @param IncomeType $incomeType
-     * @return object
-     */
-    public function getIncomesByType(IncomeType $incomeType): object
-    {
-        if (!empty($incomeType->id)) {
-            return $this->all()
-                ->where('user_id', Auth::id())
-                ->where('type', $incomeType->id);
-        }
-    }
-
-    /**
      * Get all all incomes on the specified date
      *
      * @param Carbon $date
@@ -74,7 +67,7 @@ class Income extends Model
     public function getIncomesByDate(Carbon $date): object
     {
         return $this->select()
-            ->orderBy('type', 'asc')
+            ->orderBy('type_id', 'asc')
             ->where('user_id', Auth::id())
             ->whereDate('date', $date)
             ->get();
@@ -84,18 +77,10 @@ class Income extends Model
      * We receive the amount of income for the specified date
      *
      * @param Carbon $date
-     * @param string $format
      * @return string
      */
-    public function getAmountsByDate(Carbon $date, string $format): string
+    public function getAmountsByDate(Carbon $date): string
     {
-        $incomesByDate = $this->getIncomesByDate($date);
-        $amounts = 0;
-
-        foreach ($incomesByDate as $income) {
-            $amounts += $income->amount;
-        }
-
-        return ($format == 1) ? number_format($amounts) : number_format($amounts, 2, ',', ' ');
+        return $this->getIncomesByDate($date)->sum('amount');
     }
 }

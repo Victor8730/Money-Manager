@@ -8,18 +8,39 @@ use Illuminate\Support\Carbon;
 
 class Calendar
 {
+    /**
+     * @var Carbon
+     */
     private Carbon $today;
 
+    /**
+     * @var Carbon
+     */
     private Carbon $tempDate;
 
+    /**
+     * @var Income
+     */
     private Income $income;
 
+    /**
+     * @var Costs
+     */
     private Costs $costs;
 
+    /**
+     * @var SettingsUser
+     */
     private SettingsUser $settings;
 
+    /**
+     * @var int
+     */
     private int $dayOfWeek;
 
+    /**
+     * @var array
+     */
     public array $dayInfo;
 
     /**
@@ -66,7 +87,7 @@ class Calendar
      *
      * @param array $info
      */
-    private function setDayInfo(array $info)
+    private function setDayInfo(array $info): void
     {
         $this->dayInfo[] = $info;
     }
@@ -81,7 +102,7 @@ class Calendar
      * @param Carbon $date
      * @return array
      */
-    public function createCalendar(Carbon $date)
+    public function createCalendar(Carbon $date): array
     {
         $this->setToday($date);
         $this->setTempDate();
@@ -97,8 +118,8 @@ class Calendar
                 $this->setDayInfo([
                     'tempDate' => clone $this->tempDate,
                     'today' => $this->today,
-                    'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate, $settings['format']['value']),
-                    'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate, $settings['format']['value']),
+                    'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate),
+                    'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate),
                     'nextWeek' => $i,
                     'settings' => $settings
                 ]);

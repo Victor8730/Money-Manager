@@ -15,7 +15,7 @@ class CostsType extends Model
      * The name of the table in the database
      * @var string
      */
-    protected $table = 'costs_type';
+    protected $table = 'costs_types';
 
     /**
      *  Indicates if the model has update and creation timestamps.
@@ -37,6 +37,15 @@ class CostsType extends Model
     ];
 
     /**
+     * Get cost types from costs
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function costs()
+    {
+        return $this->hasMany(Costs::class, 'type_id');
+    }
+
+    /**
      * Return name type, with key id cost type, by cost
      * @param $costs
      * @return array
@@ -46,7 +55,7 @@ class CostsType extends Model
         $name = [];
 
         foreach ($costs as $cost) {
-            $name[$cost->type] = parent::firstWhere('id', $cost->type)->name;
+            $name[$cost->type_id] = parent::firstWhere('id', $cost->type_id)->name;
         }
 
         return $name;
@@ -81,7 +90,7 @@ class CostsType extends Model
 
             return redirect()->route('costs-type.index')->with('success', 'Deletion completed successfully!');
         } catch (QueryException $e) {
-            $costsAssociated = (new Costs)->getCostsByType($this);
+            $costsAssociated = CostsType::find($this->id)->costs;
             $listAssociated = view('errors.associated', ['ul' => $costsAssociated, 'delete' => 'costs']);
 
             return redirect()->route('costs-type.index')->with('errors', 'The type of costs cannot be deleted because there is an associated costs' . $listAssociated);
