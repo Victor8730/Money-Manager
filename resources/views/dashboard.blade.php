@@ -66,7 +66,7 @@
                                 @endforeach
                             ],
                             datasets: [{
-                                label: "Incomes {{$dayItem['settings']['currency']['value-text']}}",
+                                label: "Incomes {{$dayItem['settings']['currency']['value-text']??''}}",
                                 lineTension: 0.3,
                                 backgroundColor: "rgba(40,167,69,0.3)",
                                 borderColor: "rgba(40,167,69,1)",
@@ -83,7 +83,7 @@
                                     @endforeach
                                 ],
                             }, {
-                                label: "Costs {{$dayItem['settings']['currency']['value-text']}}",
+                                label: "Costs {{$dayItem['settings']['currency']['value-text']??''}}",
                                 lineTension: 0.3,
                                 backgroundColor: "rgba(220,53,69,0.2)",
                                 borderColor: "rgba(220,53,69,1)",

@@ -15,11 +15,18 @@ class CreateCostsTable extends Migration
     {
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('type_id')->unsigned();
-            $table->foreign('type_id')->references('id')->on('costs_types');
-            $table->text('desc')->nullable();
+            $table->bigInteger('user_id')
+                ->unsigned();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            $table->bigInteger('type_id')
+                ->unsigned();
+            $table->foreign('type_id')
+                ->references('id')
+                ->on('costs_types');
+            $table->text('desc')
+                ->nullable();
             $table->float('amount');
             $table->date('date');
             $table->timestamps();

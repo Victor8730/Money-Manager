@@ -15,10 +15,15 @@ class CreateIncomeTypeTable extends Migration
     {
         Schema::create('income_types', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('user_id')
+                ->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->string('name');
-            $table->text('desc')->nullable();
+            $table->text('desc')
+                ->nullable();
             $table->timestamps();
         });
     }

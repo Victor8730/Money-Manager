@@ -34,7 +34,7 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         $settings = Settings::all();
-        SettingsUser::createSettings($user, $settings);
+        SettingsUser::createSettingsUser($user, $settings);
 
         return $user;
     }

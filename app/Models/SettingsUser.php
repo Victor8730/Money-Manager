@@ -88,7 +88,7 @@ class SettingsUser extends Model
      *
      * @param Request $request
      */
-    public function updateSettingsUser(Request $request)
+    public function updateSettingsUser(Request $request):void
     {
         foreach ($request['settings'] as $key => $setting) {
             $this->where('user_id', Auth::id())
@@ -104,7 +104,7 @@ class SettingsUser extends Model
      * @param User $user
      * @param object $settings
      */
-    public static function createSettings(User $user, object $settings): void
+    public static function createSettingsUser(User $user, object $settings): void
     {
         foreach ($settings as $setting) {
             SettingsUser::create([
