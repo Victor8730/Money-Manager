@@ -48,6 +48,8 @@
                             <div class=""></div>
                         </div>
                     </div>
+                    <div class="col-md-6">All income for the current period <span class="text-success">+{{$allIncome}}</span></div>
+                    <div class="col-md-6">All expenses for the current period <span class="text-danger">-{{$allCosts}}</span></div>
                     <canvas id="myAreaChart" class="chartjs-render-monitor"></canvas>
                 </div>
                 <div class="card-footer small text-muted">Updated {{$current}}</div>
@@ -62,11 +64,13 @@
                         data: {
                             labels: [
                                 @foreach ($dayData as $dayItem)
-                                    "{{$dayItem['tempDate']->format('l')}} - {{$dayItem['tempDate']->day}} {{$dayItem['tempDate']->format('M')}}",
+                                    @if ($dayItem['tempDate']->month === $dayItem['today']->month)
+                                        "{{$dayItem['tempDate']->format('l')}} - {{$dayItem['tempDate']->day}} {{$dayItem['tempDate']->format('M')}}",
+                                    @endif
                                 @endforeach
                             ],
                             datasets: [{
-                                label: "Incomes {{$dayItem['settings']['currency']['value-text']??''}}",
+                                    label: "Incomes {{$dayItem['settings']['currency']['value-text']??''}}",
                                 lineTension: 0.3,
                                 backgroundColor: "rgba(40,167,69,0.3)",
                                 borderColor: "rgba(40,167,69,1)",
@@ -79,7 +83,9 @@
                                 pointBorderWidth: 3,
                                 data: [
                                     @foreach ($dayData as $dayItem)
-                                        "{{ $dayItem['amountsIncomeByDay']}}",
+                                        @if ($dayItem['tempDate']->month === $dayItem['today']->month)
+                                            "{{ $dayItem['amountsIncomeByDay']}}",
+                                        @endif
                                     @endforeach
                                 ],
                             }, {
@@ -96,7 +102,9 @@
                                 pointBorderWidth: 2,
                                 data: [
                                     @foreach ($dayData as $dayItem)
-                                        "-{{ $dayItem['amountsCostsByDay']}}",
+                                        @if ($dayItem['tempDate']->month === $dayItem['today']->month)
+                                            "-{{ $dayItem['amountsCostsByDay']}}",
+                                        @endif
                                     @endforeach
                                 ],
                             }],

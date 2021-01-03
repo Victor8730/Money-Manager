@@ -107,7 +107,8 @@ class IncomeController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('income.index')
+        return redirect()
+            ->back()
             ->with('success', 'Income created successfully.');
     }
 

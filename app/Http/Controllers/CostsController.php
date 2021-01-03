@@ -106,7 +106,8 @@ class CostsController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        return redirect()->route('costs.index')
+        return redirect()
+            ->back()
             ->with('success', 'Costs created successfully.');
     }
 

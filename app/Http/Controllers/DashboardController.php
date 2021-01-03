@@ -35,11 +35,13 @@ class DashboardController extends Controller
         $current = Carbon::now();
         $setToDay = Carbon::createFromDate($year, $month);
         $dayData = $this->currentCalendar->createCalendar($setToDay);
-        $maxIncome = $maxCosts = 0;
+        $maxIncome = $maxCosts = $allIncome = $allCosts = 0;
         $days = '';
 
         foreach ($dayData as $day) {
             $days .= view('calendar.day', $day);
+            $allIncome += $day['amountsIncomeByDay'];
+            $allCosts += $day['amountsCostsByDay'];
             $maxIncome = ($day['amountsIncomeByDay'] > $maxIncome) ? $day['amountsIncomeByDay'] : $maxIncome;
             $maxCosts = ($day['amountsCostsByDay'] > $maxCosts) ? $day['amountsCostsByDay'] : $maxCosts;
         }
@@ -54,7 +56,9 @@ class DashboardController extends Controller
                 'setToDay',
                 'dayData',
                 'maxIncome',
-                'maxCosts'
+                'maxCosts',
+                'allIncome',
+                'allCosts',
             )
         );
     }
