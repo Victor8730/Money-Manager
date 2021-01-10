@@ -7,7 +7,7 @@
                 {{$cost->amount}} - {{$nameType[$cost->type_id]}}</a>
         </li>
     @empty
-        <li class="list-group-item">No cost today</li>
+        <li class="list-group-item">@lang('incomes-costs.no-costs-today')</li>
     @endforelse
 </ul>
 

@@ -3,26 +3,26 @@
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="card mb-2">
                 <h4 class="card-header"><i class="far fa-calendar-alt mr-1"></i>
-                    <span class="d-none d-md-inline">Calendar for</span> {{$setToDay->format('F Y')}}
+                    <span class="d-none d-md-inline">@lang('dashboard.calendar-for')</span> {{$setToDay->translatedFormat('F Y')}}
                 </h4>
                 <div class="card-body">
                     <div class="text-center" role="toolbar" aria-label="Toolbar with button year">
                         <a href="/dashboard/{{$year-1}}/{{$month}}" class="btn btn-outline-success my-1">
                             <i class="fas fa-chevron-left"></i>
-                            <span class="d-none d-md-inline">Previous year</span>
+                            <span class="d-none d-md-inline">@lang('dashboard.previous-year')</span>
                         </a>
                         <a href="/dashboard/{{$current->format('Y')}}/{{$month}}"
                            class="btn btn-outline-success my-1">
-                            <span class="d-md-inline">Current year</span>
+                            <span class="d-md-inline">@lang('dashboard.current-year')</span>
                             <i class="fas fa-calendar-check"></i>
                         </a>
                         <a href="/dashboard/{{$year+1}}/{{$month}}" class="btn btn-outline-success my-1">
-                            <span class="d-none d-md-inline">Next year</span>
+                            <span class="d-none d-md-inline">@lang('dashboard.next-year')</span>
                             <i class="fas fa-chevron-right"></i>
                         </a>
                     </div>
                     <div class="text-center">
-                        @foreach ( [ 'January','February','March','April','May','June','July ','August','September','October','November','December'] as $item)
+                        @foreach ( $monthsList as $item)
                             <a href="/dashboard/{{$year}}/{{ $loop->index+1 }}"
                                class="btn btn-outline-primary my-1 {{$loop->index+1==$month ? 'active' : null}}">{{ $item }}</a>
                         @endforeach
@@ -34,6 +34,8 @@
 
                 </div>
             </div>
+
+            
             <div class="card mb-2">
                 <div class="card-header">
                     <i class="fas fa-chart-area mr-1"></i>
@@ -65,7 +67,7 @@
                             labels: [
                                 @foreach ($dayData as $dayItem)
                                     @if ($dayItem['tempDate']->month === $dayItem['today']->month)
-                                        "{{$dayItem['tempDate']->format('l')}} - {{$dayItem['tempDate']->day}} {{$dayItem['tempDate']->format('M')}}",
+                                        "{{$dayItem['tempDate']->translatedFormat('l')}} - {{$dayItem['tempDate']->day}} {{$dayItem['tempDate']->translatedFormat('M')}}",
                                     @endif
                                 @endforeach
                             ],

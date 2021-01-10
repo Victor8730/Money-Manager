@@ -24,8 +24,9 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard/{year?}/{month?}', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
-Route::get('costs/list/{date?}', 'App\Http\Controllers\CostsController@list')->middleware('auth');
-Route::get('income/list/{date?}', 'App\Http\Controllers\IncomeController@list')->middleware('auth');
+Route::get('language/{locale}', 'App\Http\Controllers\LocalizationController@index')->middleware('auth');
+Route::get('costs/list/', 'App\Http\Controllers\CostsController@list')->middleware('auth');
+Route::get('income/list/', 'App\Http\Controllers\IncomeController@list')->middleware('auth');
 Route::resource('costs-type', CostsTypeController::class)->middleware('auth');
 Route::resource('costs', CostsController::class)->middleware('auth');
 Route::resource('income-type', IncomeTypeController::class)->middleware('auth');

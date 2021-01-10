@@ -8,7 +8,7 @@
             </a>
         </li>
     @empty
-        <li class="list-group-item">No income today</li>
+        <li class="list-group-item">@lang('incomes-costs.no-income-today')</li>
     @endforelse
 </ul>
 

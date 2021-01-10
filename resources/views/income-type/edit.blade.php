@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-lg-12 my-2">
             <div class="pull-left">
-                <a class="btn btn-primary tooltip-show" href="{{ route('income-type.index') }}" title="Go back">
-                    <i class="fas fa-angle-left mr-2"></i> Back
+                <a class="btn btn-primary tooltip-show" href="{{ route('income-type.index') }}" title="@lang('incomes-costs.go-back')">
+                    <i class="fas fa-backward mr-2"></i>@lang('incomes-costs.back')
                 </a>
             </div>
         </div>
@@ -24,7 +24,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-pencil-alt"></i>
-            Change fields for income type
+            @lang('incomes-costs.change-fields-income-type')
         </div>
         <div class="card-body">
             <form action="{{ route('income-type.update', $incomeType->id) }}" method="POST">
@@ -34,21 +34,21 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>Name:</strong>
+                            <strong>@lang('incomes-costs.name'):</strong>
                             <input type="text" name="name" value="{{ $incomeType->name }}" class="form-control"
-                                   placeholder="Name">
+                                   placeholder="@lang('incomes-costs.name')">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>Description:</strong>
-                            <textarea class="form-control" name="desc" placeholder="Description">{{ $incomeType->desc }}</textarea>
+                            <strong>@lang('incomes-costs.type-description'):</strong>
+                            <textarea class="form-control" name="desc" placeholder="@lang('incomes-costs.description')">{{ $incomeType->desc }}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-success tooltip-show" title="Click this button to update">
-                        Update type
+                    <button type="submit" class="btn btn-success tooltip-show" title="@lang('incomes-costs.click-this-button-to-update-type')">
+                        @lang('incomes-costs.update-type')
                     </button>
                 </div>
             </form>

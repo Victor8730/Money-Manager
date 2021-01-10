@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Calendar;
 use Illuminate\Support\Carbon;
+use Carbon\CarbonPeriod;
 
 
 class DashboardController extends Controller
@@ -28,10 +29,18 @@ class DashboardController extends Controller
         $this->currentCalendar = new Calendar();
     }
 
+    /**
+     * Create calendar
+     * Get date from url, if not exist get current date
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index(Request $request)
     {
         $year = $request->route('year') ?? Carbon::now()->format('Y');
         $month = $request->route('month') ?? Carbon::now()->format('m');
+        $monthsList = $this->MonthList($year);
         $current = Carbon::now();
         $setToDay = Carbon::createFromDate($year, $month);
         $dayData = $this->currentCalendar->createCalendar($setToDay);
@@ -40,10 +49,12 @@ class DashboardController extends Controller
 
         foreach ($dayData as $day) {
             $days .= view('calendar.day', $day);
-            $allIncome += $day['amountsIncomeByDay'];
-            $allCosts += $day['amountsCostsByDay'];
             $maxIncome = ($day['amountsIncomeByDay'] > $maxIncome) ? $day['amountsIncomeByDay'] : $maxIncome;
             $maxCosts = ($day['amountsCostsByDay'] > $maxCosts) ? $day['amountsCostsByDay'] : $maxCosts;
+            if($day['tempDate']->month === $day['today']->month) {
+                $allIncome += $day['amountsIncomeByDay'];
+                $allCosts += $day['amountsCostsByDay'];
+            }
         }
 
         $calendar = view('calendar.month', compact('days'));
@@ -52,6 +63,7 @@ class DashboardController extends Controller
                 'calendar',
                 'year',
                 'month',
+                'monthsList',
                 'current',
                 'setToDay',
                 'dayData',
@@ -61,5 +73,24 @@ class DashboardController extends Controller
                 'allCosts',
             )
         );
+    }
+
+    /**
+     * Generate list month for foreach in view
+     * Used translated format
+     *
+     * @param $year
+     * @return array
+     */
+    private function MonthList($year)
+    {
+        $period = CarbonPeriod::create($year.'-01-01', '1 month', $year.'-12-01');
+        $months = [];
+
+        foreach ($period as $month) {
+            $months[] = $month->translatedFormat('F');
+        }
+
+        return $months;
     }
 }

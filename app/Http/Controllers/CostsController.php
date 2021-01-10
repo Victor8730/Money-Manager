@@ -40,7 +40,7 @@ class CostsController extends Controller
     public function index(Request $request)
     {
         $costsType = $this->costsType->getTypeArray();
-            $costs = Costs::latest()->filter($request)->where('user_id', Auth::id())->paginate(10);
+        $costs = Costs::latest()->filter($request)->where('user_id', Auth::id())->paginate(10);
 
         return view('costs.index', compact('costs', 'costsType'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
@@ -100,9 +100,10 @@ class CostsController extends Controller
         ]);
 
         Costs::create([
-            'type_id' => $request['type_id'],
-            'amount' => $request['amount'],
-            'date' => $request['date'],
+            'type_id' => $request->input('type_id'),
+            'amount' => $request->input('amount'),
+            'date' => $request->input('date'),
+            'desc' => $request->input('desc'),
             'user_id' => Auth::id()
         ]);
 
