@@ -36,5 +36,14 @@ class SettingsTableSeeder  extends Seeder
             'value' => '{"1": "White-Gray"}',
             'created_at' => now(),
         ]);
+
+        DB::table('settings')->insert([
+            'id' => 4,
+            'key' => 'language',
+            'name' => 'Localization',
+            'notice' => '',
+            'value' => '{"1": "English", "2": "Ukraine", "3": "Russian"}',
+            'created_at' => now(),
+        ]);
     }
 }

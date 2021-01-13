@@ -51,6 +51,34 @@ class SettingsUser extends Model
     }
 
     /**
+     * Get current language from setting
+     *
+     * @return string
+     */
+    public function getLanguageUser(): string
+    {
+        $arrayLang = [1 => 'en', 2 => 'uk', 3 => 'ru'];
+        $idLang = $this->where('user_id', Auth::id())
+            ->where('setting_id', 4)
+            ->pluck('value');
+
+        return $arrayLang[$idLang[0]];
+    }
+
+    /**
+     * Update user setting language
+     *
+     * @param $lng
+     */
+    public function setLanguageUser($lng): void
+    {
+        $arrayLang = ['en' => 1, 'uk' => 2, 'ru' => 3];
+        $this->where('user_id', Auth::id())
+            ->where('setting_id', 4)
+            ->update(['value' => $arrayLang[$lng]]);
+    }
+
+    /**
      * Get all settings by user and return in array with key by setting_id
      * Used in setting page
      *
@@ -85,10 +113,11 @@ class SettingsUser extends Model
 
     /**
      * Update all settings for user, used in setting page
+     * If the setting number is 4 then this is localization, then we save the value to the session
      *
      * @param Request $request
      */
-    public function updateSettingsUser(Request $request):void
+    public function updateSettingsUser(Request $request): void
     {
         foreach ($request['settings'] as $key => $setting) {
             $this->where('user_id', Auth::id())
