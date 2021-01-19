@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="@lang('template.lng')">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="Webpagestudio.net">
 
-    <title>Money manager</title>
+    <title>@lang('template.navbar')</title>
 
     <link href="/css/styles.css" rel="stylesheet"/>
     <link href="/css/carousel.css" rel="stylesheet">
@@ -17,7 +17,7 @@
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/">Money manager</a>
+        <a class="navbar-brand" href="/">@lang('template.navbar')</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,32 +25,34 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">@lang('home.home')</a>
                 </li>
                 @if (Route::has('login'))
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/dashboard') }}">Dashboard</a>
+                            <a class="nav-link" href="{{ url('/dashboard') }}">@lang('home.home')</a>
                         </li>
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a  class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                             this.closest('form').submit();">
-                                    {{ __('Logout') }}
+                                    @lang('home.logout')
                                 </a>
                             </form>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            <a class="nav-link" href="{{ route('register') }}">@lang('home.reg')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">@lang('home.login')</a>
                         </li>
                     @endif
                 @endif
             </ul>
+
+            @include('layouts.lng')
         </div>
     </nav>
 </header>
@@ -67,10 +69,10 @@
                 <img class="first-slide" src="img/slide-1.jpg" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Money manager</h1>
-                        <p>Create your own reporting system</p>
-                        <p><a class="btn btn-lg btn-primary" href="{{ route('register') }}" role="button">Sign up
-                                today</a></p>
+                        <h1>@lang('home.slider1-h1')</h1>
+                        <p>@lang('home.slider1-slogan')</p>
+                        <p><a class="btn btn-lg btn-primary" href="{{ route('register') }}" role="button">
+                                @lang('home.slider1-button')</a></p>
                     </div>
                 </div>
             </div>
@@ -78,21 +80,21 @@
                 <img class="second-slide" src="img/slide-2.jpg" alt="Second slide">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Type income</h1>
-                        <p>Create an infinite number of types of income</p>
-                        <p><a class="btn btn-lg btn-primary" href="{{ route('register') }}" role="button">Register
-                                now</a></p>
+                        <h1>@lang('home.slider2-h1')</h1>
+                        <p>@lang('home.slider2-slogan')</p>
+                        <p><a class="btn btn-lg btn-primary" href="{{ route('register') }}" role="button">
+                                @lang('home.slider1-button')</a></p>
                     </div>
                 </div>
             </div>
         </div>
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
+            <span class="sr-only">@lang('home.slider-prev')</span>
         </a>
         <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
+            <span class="sr-only">@lang('home.slider-next')</span>
         </a>
     </div>
 
@@ -168,5 +170,31 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         crossorigin="anonymous"></script>
+<script>
+    (function ($) {
+        "use strict";
+        $(document).on('click', '.event-lng', function (event) {
+            event.preventDefault();
+            let href = $(this).data('url');
+            $.ajax({
+                type: "GET",
+                url: href,
+                dataType: "json",
+                beforeSend: function () {
+                    $('.loader').show();
+                },
+                success: function (result) {
+                    location.reload();
+                },
+                error: function (jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    $('.loader').hide();
+                },
+                timeout: 8000
+            })
+        });
+    })(jQuery);
+</script>
 </body>
 </html>

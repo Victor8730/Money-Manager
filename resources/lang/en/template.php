@@ -23,6 +23,7 @@ return [
     'profile' => 'Profile',
     'api' => 'Api',
     'logout' => 'Exit',
+    'languages' => 'Language',
 
     /*
      * Menu addition bottom

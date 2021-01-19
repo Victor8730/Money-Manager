@@ -23,6 +23,7 @@ return [
      * costs,income/index.blade.php
      */
     'income-table' => 'Таблица доходов',
+    'costs-table' => 'Таблица расходов',
     'type' => 'Тип',
     'date-posted' => 'Дата добавления',
     'action' => 'Действие',

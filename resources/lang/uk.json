@@ -1,0 +1,13 @@
+{
+    "Name": "Им’я",
+    "Email": "Пошта",
+    "Confirm Password": "Підтвердження пароля",
+    "Already registered?": "Вже зареєстровані?",
+    "Password": "Пароль",
+    "Remember me": "Запам’ятати",
+    "Login": "Увійти",
+    "Register": "Реєстрація",
+    "Forgot your password?": "Забули пароль?",
+    "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "Забули пароль? Немає проблем. Просто повідомте нам свою адресу електронної пошти, і ми надішлемо вам посилання для скидання пароля, яка дозволить вам вибрати новий.",
+    "Email Password Reset Link": "Отримати посилання для скидання пароля"
+}

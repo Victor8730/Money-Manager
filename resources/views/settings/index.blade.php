@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <div class="py-12">
+    <div class="py-12 settings">
         @include('errors.session')
         <div class="card mb-2">
             <h4 class="card-header">
                 <i class="fas fa-cogs mr-1"></i>
-                Settings
+                @lang('settings.title')
             </h4>
             <div class="card-body">
                 <form action="{{ route('settings.update', $user->id) }}" method="POST">
@@ -33,7 +33,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    <button class="btn btn-success" type="submit">Save settings</button>
+                    <button class="btn btn-success" type="submit">@lang('settings.button-save')</button>
                 </form>
             </div>
         </div>

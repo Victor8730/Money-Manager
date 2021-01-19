@@ -22,7 +22,8 @@ return [
     /*
      * costs,income/index.blade.php
      */
-    'income-table' => 'Таблица доходів',
+    'income-table' => 'Таблиця доходів',
+    'costs-table' => 'Таблиця витрати',
     'type' => 'Тип',
     'date-posted' => 'Дата додавання',
     'action' => 'Дія',
