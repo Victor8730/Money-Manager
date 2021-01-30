@@ -107,9 +107,7 @@ class IncomeController extends Controller
             'user_id' => Auth::id()
         ]);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Income created successfully.');
+        return redirect(back()->getTargetUrl() . '#day-' . $request->input('date'));
     }
 
     /**
