@@ -23,6 +23,7 @@ Route::get('/', function () {
     return view('layouts.home');
 });
 
+Route::get('analytics', 'App\Http\Controllers\AnalyticsController@index')->middleware('auth');
 Route::get('dashboard/{year?}/{month?}', 'App\Http\Controllers\DashboardController@index')->middleware('auth');
 Route::get('language/{locale}', 'App\Http\Controllers\LocalizationController@index');
 Route::get('costs/list/', 'App\Http\Controllers\CostsController@list')->middleware('auth');
