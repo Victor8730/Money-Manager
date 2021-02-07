@@ -2,18 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CostsType;
+use App\Models\IncomeType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class AnalyticsController extends Controller
 {
+
+    /**
+     * Var with costs type, get instance model
+     * @var CostsType|object
+     */
+    protected CostsType $costsType;
+
+    /**
+     * Var with income type, get instance model
+     * @var IncomeType|object
+     */
+    private IncomeType $incomeType;
+
+    /**
+     * AnalyticsController constructor.
+     */
+    public function __construct()
+    {
+        $this->costsType = new CostsType;
+        $this->incomeType = new IncomeType;
+    }
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        return view('analytics.index');
+        $costsType = $this->costsType->getType();
+        $incomeType = $this->incomeType->getType();
+
+        return view('analytics.index', compact('costsType','incomeType'));
     }
 
     /**

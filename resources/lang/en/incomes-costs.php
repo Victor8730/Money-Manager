@@ -18,6 +18,7 @@ return [
     'create' => 'Create',
     'amount' => 'Amount',
     'description' => 'Description',
+    'apply-search' => 'Apply search',
 
     /*
      * costs,income/index.blade.php

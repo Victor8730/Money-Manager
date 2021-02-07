@@ -18,6 +18,7 @@ return [
     'create' => 'Створити',
     'amount' => 'Килькість',
     'description' => 'Опис',
+    'apply-search' => 'Шукати',
 
     /*
      * costs,income/index.blade.php
