@@ -118,6 +118,8 @@ class Calendar
                 $this->setDayInfo([
                     'tempDate' => clone $this->tempDate,
                     'today' => $this->today,
+                    'allIncomesByDay' => $this->income->getIncomesTypeByDate($this->tempDate),
+                    'allCostsByDay' => $this->costs->getCostsTypeByDate($this->tempDate),
                     'amountsIncomeByDay' => $this->income->getAmountsByDate($this->tempDate),
                     'amountsCostsByDay' => $this->costs->getAmountsByDate($this->tempDate),
                     'nextWeek' => $i,

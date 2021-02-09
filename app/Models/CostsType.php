@@ -61,6 +61,11 @@ class CostsType extends Model
         return $name;
     }
 
+    public function getTypeNameById(int $id)
+    {
+        return parent::firstWhere('id', $id)->name;
+    }
+
     /**
      * Get all costs type from user, in format object
      * @return object

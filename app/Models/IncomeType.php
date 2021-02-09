@@ -63,6 +63,11 @@ class IncomeType extends Model
         return $name;
     }
 
+    public function getTypeNameById(int $id)
+    {
+        return parent::firstWhere('id', $id)->name;
+    }
+
     /**
      * Get all income type from user, in format object
      * @return object

@@ -83,4 +83,15 @@ class Income extends Model
     {
         return $this->getIncomesByDate($date)->sum('amount');
     }
+
+    /**
+     *
+     *
+     * @param Carbon $date
+     * @return array
+     */
+    public function getIncomesTypeByDate(Carbon $date): array
+    {
+        return $this->getIncomesByDate($date)->keyBy('type_id')->toArray();
+    }
 }

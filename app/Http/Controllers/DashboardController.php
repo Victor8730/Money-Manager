@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\CostsType;
+use App\Models\IncomeType;
 use Illuminate\Http\Request;
 use App\Models\Calendar;
 use Illuminate\Support\Carbon;
@@ -44,16 +46,28 @@ class DashboardController extends Controller
         $current = Carbon::now();
         $setToDay = Carbon::createFromDate($year, $month);
         $dayData = $this->currentCalendar->createCalendar($setToDay);
-        $maxIncome = $maxCosts = $allIncome = $allCosts = 0;
+        $maxIncome = $maxCosts = $amountsIncomes = $amountsCosts = 0;
+        $allCosts = $allIncomes = [];
         $days = '';
 
         foreach ($dayData as $day) {
             $days .= view('calendar.day', $day);
             $maxIncome = ($day['amountsIncomeByDay'] > $maxIncome) ? $day['amountsIncomeByDay'] : $maxIncome;
             $maxCosts = ($day['amountsCostsByDay'] > $maxCosts) ? $day['amountsCostsByDay'] : $maxCosts;
-            if($day['tempDate']->month === $day['today']->month) {
-                $allIncome += $day['amountsIncomeByDay'];
-                $allCosts += $day['amountsCostsByDay'];
+            if ($day['tempDate']->month === $day['today']->month) {
+                $amountsIncomes += $day['amountsIncomeByDay'];
+                $amountsCosts += $day['amountsCostsByDay'];
+
+                foreach ($day['allIncomesByDay'] as $typeIdIncomes => $income) {
+                    $allIncomes[$typeIdIncomes]['amount'] = (isset($allIncomes[$typeIdIncomes]['amount'])) ? $allIncomes[$typeIdIncomes]['amount'] + $income['amount'] : $income['amount'];
+                    $allIncomes[$typeIdIncomes]['type-name'] = (new IncomeType())->getTypeNameById($typeIdIncomes);
+                }
+
+                foreach ($day['allCostsByDay'] as $typeIdCosts => $costs) {
+                    $allCosts[$typeIdCosts]['amount'] = (isset($allCosts[$typeIdCosts]['amount'])) ? $allCosts[$typeIdCosts]['amount'] + $costs['amount'] : $costs['amount'];
+                    $allCosts[$typeIdCosts]['type-name'] =(new CostsType())->getTypeNameById($typeIdCosts);
+                }
+
             }
         }
 
@@ -69,7 +83,9 @@ class DashboardController extends Controller
                 'dayData',
                 'maxIncome',
                 'maxCosts',
-                'allIncome',
+                'amountsIncomes',
+                'amountsCosts',
+                'allIncomes',
                 'allCosts',
             )
         );
@@ -84,7 +100,7 @@ class DashboardController extends Controller
      */
     private function MonthList($year)
     {
-        $period = CarbonPeriod::create($year.'-01-01', '1 month', $year.'-12-01');
+        $period = CarbonPeriod::create($year . '-01-01', '1 month', $year . '-12-01');
         $months = [];
 
         foreach ($period as $month) {

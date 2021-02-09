@@ -84,4 +84,15 @@ class Costs extends Model
     {
         return $this->getCostsByDate($date)->sum('amount');
     }
+
+    /**
+     *
+     *
+     * @param Carbon $date
+     * @return array
+     */
+    public function getCostsTypeByDate(Carbon $date): array
+    {
+        return $this->getCostsByDate($date)->keyBy('type_id')->toArray();
+    }
 }
