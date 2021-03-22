@@ -92,6 +92,6 @@ class Income extends Model
      */
     public function getIncomesTypeByDate(Carbon $date): array
     {
-        return $this->getIncomesByDate($date)->keyBy('type_id')->toArray();
+        return $this->getIncomesByDate($date)->toArray();
     }
 }

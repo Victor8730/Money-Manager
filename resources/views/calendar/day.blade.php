@@ -1,5 +1,5 @@
 <div
-    class="container day col-sm p-2 border border-left-0 border-top-0 text-truncate {{ $tempDate->month !== $today->month ? 'd-none d-sm-inline-block bg-light text-muted' : '' }}"
+    class="container day col-sm p-2 border border-left-0 border-top-0 text-truncate border-bottom{{ $tempDate->month !== $today->month ? 'd-none d-sm-inline-block bg-light text-muted' : '' }}"
     id="day-{{$tempDate->format('Y-m-d')}}">
     <h5 class="row align-items-center">
         <span class="date badge badge-dark">{{$tempDate->day}}</span>

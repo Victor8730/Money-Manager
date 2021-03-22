@@ -58,14 +58,14 @@ class DashboardController extends Controller
                 $amountsIncomes += $day['amountsIncomeByDay'];
                 $amountsCosts += $day['amountsCostsByDay'];
 
-                foreach ($day['allIncomesByDay'] as $typeIdIncomes => $income) {
-                    $allIncomes[$typeIdIncomes]['amount'] = (isset($allIncomes[$typeIdIncomes]['amount'])) ? $allIncomes[$typeIdIncomes]['amount'] + $income['amount'] : $income['amount'];
-                    $allIncomes[$typeIdIncomes]['type-name'] = (new IncomeType())->getTypeNameById($typeIdIncomes);
+                foreach ($day['allIncomesByDay'] as $income) {
+                    $allIncomes[$income['type_id']]['amount'] = (isset($allIncomes[$income['type_id']]['amount'])) ? $allIncomes[$income['type_id']]['amount'] + $income['amount'] : $income['amount'];
+                    $allIncomes[$income['type_id']]['type-name'] = (new IncomeType())->getTypeNameById($income['type_id']);
                 }
 
-                foreach ($day['allCostsByDay'] as $typeIdCosts => $costs) {
-                    $allCosts[$typeIdCosts]['amount'] = (isset($allCosts[$typeIdCosts]['amount'])) ? $allCosts[$typeIdCosts]['amount'] + $costs['amount'] : $costs['amount'];
-                    $allCosts[$typeIdCosts]['type-name'] =(new CostsType())->getTypeNameById($typeIdCosts);
+                foreach ($day['allCostsByDay'] as $costs) {
+                    $allCosts[$costs['type_id']]['amount'] = (isset($allCosts[$costs['type_id']]['amount'])) ? $allCosts[$costs['type_id']]['amount'] + $costs['amount'] : $costs['amount'];
+                    $allCosts[$costs['type_id']]['type-name'] =(new CostsType())->getTypeNameById($costs['type_id']);
                 }
 
             }

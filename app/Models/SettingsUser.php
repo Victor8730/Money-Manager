@@ -62,7 +62,7 @@ class SettingsUser extends Model
             ->where('setting_id', 4)
             ->pluck('value');
 
-        return $arrayLang[$idLang[0]];
+        return (array_key_exists($idLang[0], $arrayLang)) ? $arrayLang[$idLang[0]] : 1;
     }
 
     /**
