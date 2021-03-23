@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>@lang('incomes-costs.amount'):</strong>
+                <strong>@lang('incomes-costs.sum'):</strong>
                 <input type="text" name="amount" class="form-control" placeholder="@lang('incomes-costs.amount')"
                        value="{{ isset($typeForm) ? $income->amount  : null }}">
             </div>

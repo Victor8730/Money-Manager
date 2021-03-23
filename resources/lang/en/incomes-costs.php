@@ -17,6 +17,7 @@ return [
     'filter' => 'Filter',
     'create' => 'Create',
     'amount' => 'Amount',
+    'sum' => 'Sum',
     'description' => 'Description',
     'apply-search' => 'Apply search',
 

@@ -40,4 +40,10 @@ return [
     'add-costs' => 'Add costs',
     'show-list-costs' => 'Show list costs',
     'show-list-costs-for-editing' => 'Show list costs for editing',
+    'show-all-sum-costs-incomes' => 'Total amount for the period',
+    'show-all-list-costs-incomes' => 'Total by type',
+    'show-all-income-for-the-current-period' => 'All profits for the current period',
+    'show-all-expenses-for-the-current-period' => 'All expenses for the current period',
+    'show-chart-of-expenses-and-income-for-the-selected-period' => 'Chart of expenses and income for the selected period',
+    'show-stat-by-month' => 'Monthly statistics',
 ];

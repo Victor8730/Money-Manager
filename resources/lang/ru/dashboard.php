@@ -40,5 +40,11 @@ return [
     'add-costs' => 'Добавить расход',
     'show-list-costs' => 'Показать список расходов',
     'show-list-costs-for-editing' => 'Показать список расходов для редатирования',
+    'show-all-sum-costs-incomes' => 'Общая сумма за период',
+    'show-all-list-costs-incomes' => 'Общая сумма по типам',
+    'show-all-income-for-the-current-period' => 'Вся прибыль за текущий период',
+    'show-all-expenses-for-the-current-period' => 'Все расходы за текущий период',
+    'show-chart-of-expenses-and-income-for-the-selected-period' => 'График расходов и доходов за выбранный период',
+    'show-stat-by-month' => 'Статистика за месяц',
 
 ];

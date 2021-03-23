@@ -17,6 +17,7 @@ return [
     'filter' => 'Фітрація',
     'create' => 'Створити',
     'amount' => 'Килькість',
+    'sum' => 'Сума',
     'description' => 'Опис',
     'apply-search' => 'Шукати',
 

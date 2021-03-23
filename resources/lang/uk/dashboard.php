@@ -40,5 +40,11 @@ return [
     'add-costs' => 'Додати витрати',
     'show-list-costs' => 'Показати список витрати',
     'show-list-costs-for-editing' => 'Показати список витрати для редактування',
+    'show-all-sum-costs-incomes' => 'Загальна сума за період',
+    'show-all-list-costs-incomes' => 'Загальна сума за типами',
+    'show-all-income-for-the-current-period' => 'Весь прибуток за поточний період',
+    'show-all-expenses-for-the-current-period' => 'Всі витрати за поточний період',
+    'show-chart-of-expenses-and-income-for-the-selected-period' => 'Діаграма витрат та доходів за обраний період',
+    'show-stat-by-month' => 'Статистика за місяць',
 
 ];

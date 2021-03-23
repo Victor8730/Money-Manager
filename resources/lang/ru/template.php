@@ -45,7 +45,7 @@ return [
     'list-incomes' => 'Список доходов',
     'type-incomes' => 'Типы доходов',
     'list-costs' => 'Список расходов',
-    'type-costs' => 'Тип расходов',
+    'type-costs' => 'Типы расходов',
     'settings' => 'Установка',
     'logged-id' => 'Пользователь',
     'ver' => 'версия',
