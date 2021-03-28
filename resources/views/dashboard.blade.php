@@ -54,7 +54,7 @@
 
                     <div class="card mb-4">
                         <div class="card-header" role="button" data-toggle="collapse" data-target="#all-sum" aria-expanded="true" aria-controls="all-sum">
-                            <i class="fas fa-funnel-dollar mr-1"></i>
+                            <i class="fas fa-funnel-dollarsidebarToggle mr-1"></i>
                             @lang('dashboard.show-all-sum-costs-incomes')
                         </div>
                         <div class="card-body collapse" id="all-sum">
