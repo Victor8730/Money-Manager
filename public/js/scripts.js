@@ -15,8 +15,8 @@
     });
 
     // Toggle the side navigation
-    $("#sidebarToggle, #layoutSidenav_content").on("click", function (e) {
-        e.preventDefault();
+    $(document).on('click', '#sidebarToggle, .sb-sidenav-toggled #layoutSidenav_content', function (event) {
+        event.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
 
