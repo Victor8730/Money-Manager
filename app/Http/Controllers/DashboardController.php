@@ -44,7 +44,7 @@ class DashboardController extends Controller
         $month = $request->route('month') ?? Carbon::now()->format('m');
         $monthsList = $this->MonthList($year);
         $current = Carbon::now();
-        $setToDay = Carbon::createFromDate($year, $month);
+        $setToDay = Carbon::createFromDate($year, $month, 1);
         $dayData = $this->currentCalendar->createCalendar($setToDay);
         $maxIncome = $maxCosts = $amountsIncomes = $amountsCosts = 0;
         $allCosts = $allIncomes = [];
