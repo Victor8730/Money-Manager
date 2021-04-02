@@ -2021,6 +2021,10 @@ pre code {
     .table-responsive-lg > .table-bordered {
         border: 0;
     }
+
+    div.text-muted{
+        display: none;
+    }
 }
 
 @media (max-width: 1199.98px) {
