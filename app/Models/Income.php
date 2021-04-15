@@ -74,6 +74,24 @@ class Income extends Model
     }
 
     /**
+     * Get all all incomes on the specified date range
+     *
+     * @param Carbon $dateStart
+     * @param Carbon $dateFinal
+     * @param int $type
+     * @return mixed
+     */
+    public function getIncomesByDateRange(Carbon $dateStart, Carbon $dateFinal, int $type): object
+    {
+        return $this->select()
+            ->orderBy('created_at', 'desc')
+            ->where('type_id', $type)
+            ->where('user_id', Auth::id())
+            ->whereBetween('date', [$dateStart, $dateFinal])
+            ->get();
+    }
+
+    /**
      * We receive the amount of income for the specified date
      *
      * @param Carbon $date

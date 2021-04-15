@@ -2,10 +2,10 @@
     <div class="py-12">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="card mb-2">
-                <div class="card-header">
+                <h4 class="card-header">
                     <i class="fas fa-chart-area mr-1"></i>
-                    Chart of expenses and income for the selected period
-                </div>
+                    @lang('analytics.Chart of expenses and income for the selected period')
+                </h4>
                 <div class="card-body">
                     <div class="chartjs-size-monitor">
                         <div class="chartjs-size-monitor-expand">
@@ -31,19 +31,29 @@
                                                     <div class="col-md-6">
                                                         <div class="input-group mb-1">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">@lang('incomes-costs.date')</span>
+                                                                <span class="input-group-text">@lang('incomes-costs.date-start')</span>
                                                             </div>
-                                                            <input type="date" class="form-control"
-                                                                   aria-label="Dollar amount (with dot and two decimal places)">
+                                                            <input type="date" class="form-control" aria-label="Start date" id="start">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="input-group mb-1">
                                                             <div class="input-group-prepend">
-                                                                <label class="input-group-text"
-                                                                       for="inputGroupSelect01">@lang('template.type-incomes')</label>
+                                                                <span class="input-group-text">@lang('incomes-costs.date-final')</span>
                                                             </div>
-                                                            <select class="form-control" name="type-incomes">
+                                                            <input type="date" class="form-control" aria-label="Final Date" id="final">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group mb-1">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text">
+                                                                    @lang('template.type-incomes')
+                                                                </label>
+                                                            </div>
+                                                            <select class="form-control" name="type-incomes" id="type">
                                                                 @foreach($incomeType as $type)
                                                                     <option
                                                                         value="{{ $type->id }}">{{ $type->name }}</option>
@@ -52,7 +62,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div><button type="button" class="btn btn-primary">@lang('incomes-costs.apply-search')</button></div>
+                                                <div><button type="button" class="btn btn-primary updateCostCharts" data-search="income">@lang('incomes-costs.apply-search')</button></div>
                                             </div>
                                         </div>
                                     </div>
@@ -72,46 +82,53 @@
                                                     <div class="col-md-6">
                                                         <div class="input-group mb-1">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text">@lang('incomes-costs.date')</span>
+                                                                <span class="input-group-text">@lang('incomes-costs.date-start')</span>
                                                             </div>
-                                                            <input type="date" class="form-control"
-                                                                   aria-label="Dollar amount (with dot and two decimal places)">
+                                                            <input type="date" class="form-control" aria-label="Start date">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="input-group mb-1">
                                                             <div class="input-group-prepend">
-                                                                <label class="input-group-text"
-                                                                       for="inputGroupSelect01">@lang('template.type-costs')</label>
+                                                                <span class="input-group-text">@lang('incomes-costs.date-final')</span>
+                                                            </div>
+                                                            <input type="date" class="form-control" aria-label="Final Date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group mb-1">
+                                                            <div class="input-group-prepend">
+                                                                <label class="input-group-text">
+                                                                    @lang('template.type-costs')
+                                                                </label>
                                                             </div>
                                                             <select class="form-control" name="type-costs">
                                                                 @foreach($costsType as $type)
-                                                                    <option
-                                                                        value="{{ $type->id }}" >{{ $type->name }}</option>
+                                                                    <option value="{{ $type->id }}">
+                                                                        {{ $type->name }}
+                                                                    </option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div><button type="button" class="btn btn-primary">@lang('incomes-costs.apply-search')</button></div>
+                                                <div><button type="button" class="btn btn-primary updateCharts" data-search="cost">@lang('incomes-costs.apply-search')</button></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                    <div class="col-md-6">All income for the current period <span class="text-success"></span></div>
-                    <div class="col-md-6">All expenses for the current period <span class="text-danger"></span></div>
-                    <canvas id="myAreaChart" class="chartjs-render-monitor"></canvas>
+                    <canvas id="analyticsAreaChart" class="chartjs-render-monitor"></canvas>
                 </div>
                 <div class="card-footer small text-muted">Updated ....</div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-                        crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
                 <script>
                     Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
                     Chart.defaults.global.defaultFontColor = '#292b2c';
-                    let ctx = document.getElementById("myAreaChart");
-                    let myLineChart = new Chart(ctx, {
+                    let ctx = document.getElementById("analyticsAreaChart");
+                    let analyticsLineChart = new Chart(ctx, {
                         type: 'line',
                         data: {
                             labels: [],
@@ -172,6 +189,56 @@
                             }
                         }
                     });
+
+                    let updateCharts = document.getElementsByClassName('updateCostCharts');
+                    updateCharts[0].onclick = function(event) {
+                        UpdateChart(analyticsLineChart);
+                    };
+
+                    function UpdateChart(chart) {
+                        let xmlHttp = new XMLHttpRequest();
+                        let start = document.getElementById('start').value;
+                        let final = document.getElementById('final').value;
+                        let type = document.getElementById('type').value;
+
+                        xmlHttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                console.log(this);
+                                //document.getElementById("txtHint").innerHTML = this.responseText;
+                            }
+                        };
+                        xmlHttp.open("GET", "/analytics/data?start=" + start + "&final=" + final + "&type=" + type, true);
+                        xmlHttp.send();
+
+
+                        var data =  {
+                            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                            datasets: [{
+                                label: '# of Votes',
+                                data: [122, 192, 3, 55, 2, 322],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255,99,132,1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        }
+                        chart.data.labels = data.labels
+                        chart.data.datasets = data.datasets
+                        chart.update()
+                    }
                 </script>
             </div>
         </div>

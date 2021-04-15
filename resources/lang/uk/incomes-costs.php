@@ -49,6 +49,8 @@ return [
     'type-incomes' => 'Тип доходів',
     'new-type' => 'Новый тип',
     'date' => 'Дата',
+    'date-start' => 'Дата початок',
+    'date-final' => 'Дата кінець',
     'click-button' => 'Натисніть для редактування/створення',
     'create-new' => 'Створити',
     'update-new' => 'Оновити',

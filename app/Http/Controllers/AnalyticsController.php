@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CostsType;
+use App\Models\Income;
+use App\Models\Costs;
 use App\Models\IncomeType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -14,7 +16,7 @@ class AnalyticsController extends Controller
      * Var with costs type, get instance model
      * @var CostsType|object
      */
-    protected CostsType $costsType;
+    private CostsType $costsType;
 
     /**
      * Var with income type, get instance model
@@ -23,12 +25,26 @@ class AnalyticsController extends Controller
     private IncomeType $incomeType;
 
     /**
+     * Var with object income
+     * @var Income
+     */
+    private Income $income;
+
+    /**
+     * Var with object costs
+     * @var Costs
+     */
+    private Costs $costs;
+
+    /**
      * AnalyticsController constructor.
      */
     public function __construct()
     {
         $this->costsType = new CostsType;
         $this->incomeType = new IncomeType;
+        $this->income = new Income;
+        $this->costs = new Costs;
     }
 
     /**
@@ -109,5 +125,21 @@ class AnalyticsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return false|string
+     */
+    public function data(Request $request)
+    {
+        $dateStart = Carbon::create((!empty($request->input('start'))) ? $request->input('start') : date("Y-m-d"));
+        $dateFinal = Carbon::create((!empty($request->input('final'))) ? $request->input('final') : date("Y-m-d"));
+        $dataType = (!empty($request->input('type'))) ? $request->input('type') : 1;
+        $dataVariant = (!empty($request->input('variant'))) ? $request->input('variant') : 1;
+        $data = ($dataVariant==1) ? $this->income->getIncomesByDateRange($dateStart,$dateFinal,$dataType) : $this->costs->getCostsByDateRange($dateStart,$dateFinal,$dataType);
+
+        return json_encode(['r'=>$data]);
     }
 }

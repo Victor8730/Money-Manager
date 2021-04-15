@@ -49,6 +49,8 @@ return [
     'type-incomes' => 'Type Incomes',
     'new-type' => 'New Type',
     'date' => 'Date',
+    'date-start' => 'Date start',
+    'date-final' => 'Date final',
     'click-button' => 'Click for update/create',
     'create-new' => 'Create',
     'update-new' => 'Update ',
