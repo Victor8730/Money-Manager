@@ -33,7 +33,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">@lang('incomes-costs.date-start')</span>
                                                             </div>
-                                                            <input type="date" class="form-control" aria-label="Start date" id="start">
+                                                            <input type="date" class="form-control" aria-label="Start date" id="start-incomes">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -41,7 +41,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">@lang('incomes-costs.date-final')</span>
                                                             </div>
-                                                            <input type="date" class="form-control" aria-label="Final Date" id="final">
+                                                            <input type="date" class="form-control" aria-label="Final Date" id="final-incomes">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -53,7 +53,7 @@
                                                                     @lang('template.type-incomes')
                                                                 </label>
                                                             </div>
-                                                            <select class="form-control" name="type-incomes" id="type">
+                                                            <select class="form-control" name="type-incomes" id="type-incomes">
                                                                 @foreach($incomeType as $type)
                                                                     <option
                                                                         value="{{ $type->id }}">{{ $type->name }}</option>
@@ -62,7 +62,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div><button type="button" class="btn btn-primary updateCostCharts" data-search="income">@lang('incomes-costs.apply-search')</button></div>
+                                                <div><button type="button" class="btn btn-primary updateCharts" data-variant="incomes">@lang('incomes-costs.apply-search')</button></div>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">@lang('incomes-costs.date-start')</span>
                                                             </div>
-                                                            <input type="date" class="form-control" aria-label="Start date">
+                                                            <input type="date" class="form-control" aria-label="Start date" id="start-costs">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -92,7 +92,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">@lang('incomes-costs.date-final')</span>
                                                             </div>
-                                                            <input type="date" class="form-control" aria-label="Final Date">
+                                                            <input type="date" class="form-control" aria-label="Final Date" id="final-costs">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -104,7 +104,7 @@
                                                                     @lang('template.type-costs')
                                                                 </label>
                                                             </div>
-                                                            <select class="form-control" name="type-costs">
+                                                            <select class="form-control" name="type-costs" id="type-costs">
                                                                 @foreach($costsType as $type)
                                                                     <option value="{{ $type->id }}">
                                                                         {{ $type->name }}
@@ -114,12 +114,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div><button type="button" class="btn btn-primary updateCharts" data-search="cost">@lang('incomes-costs.apply-search')</button></div>
+                                                <div><button type="button" class="btn btn-primary updateCharts" data-variant="costs">@lang('incomes-costs.apply-search')</button></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                    <div class="text-center"><h3 id="show-amount"></h3></div>
                     <canvas id="analyticsAreaChart" class="chartjs-render-monitor"></canvas>
                 </div>
                 <div class="card-footer small text-muted">Updated ....</div>
@@ -190,54 +191,102 @@
                         }
                     });
 
-                    let updateCharts = document.getElementsByClassName('updateCostCharts');
-                    updateCharts[0].onclick = function(event) {
-                        UpdateChart(analyticsLineChart);
-                    };
+                    let elementsClick = document.getElementsByClassName('updateCharts');
 
-                    function UpdateChart(chart) {
+                    for (let i = 0; i < elementsClick.length; i++) {
+                        elementsClick[i].addEventListener('click', function(){
+                            UpdateChart(analyticsLineChart, elementsClick[i].dataset.variant);
+                        }, false);
+                    }
+
+                    function UpdateChart(chart, variant) {
                         let xmlHttp = new XMLHttpRequest();
-                        let start = document.getElementById('start').value;
-                        let final = document.getElementById('final').value;
-                        let type = document.getElementById('type').value;
+                        let start = document.getElementById('start-' + variant).value;
+                        let final = document.getElementById('final-' + variant).value;
+                        let type = document.getElementById('type-' + variant).value;
+                        let v,set;
+                        if(variant==='incomes'){
+                            v = 1;
+                            set = [{
+                                    lineTension: 0.3,
+                                    backgroundColor: "rgba(40,167,69,0.3)",
+                                    borderColor: "rgba(40,167,69,1)",
+                                    pointRadius: 5,
+                                    pointBackgroundColor: "rgba(40,167,69,1)",
+                                    pointBorderColor: "rgba(255,255,255,0.8)",
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: "rgba(40,167,69,1)",
+                                    pointHitRadius: 50,
+                                    pointBorderWidth: 3,
+                                }]
+                        }else{
+                            v = 2;
+                            set = [{
+                                    lineTension: 0.3,
+                                    backgroundColor: "rgba(220,53,69,0.2)",
+                                    borderColor: "rgba(220,53,69,1)",
+                                    pointRadius: 5,
+                                    pointBackgroundColor: "rgba(220,53,69,1)",
+                                    pointBorderColor: "rgba(255,255,255,0.8)",
+                                    pointHoverRadius: 5,
+                                    pointHoverBackgroundColor: "rgba(220,53,69,1)",
+                                    pointHitRadius: 50,
+                                    pointBorderWidth: 2,
+                                }]
+                        }
 
                         xmlHttp.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                console.log(this);
-                                //document.getElementById("txtHint").innerHTML = this.responseText;
+                            if (this.readyState === 4 && this.status === 200) {
+                                const response = JSON.parse(this.response);
+                                const array = response.date;
+                                const data =  {
+                                    labels: Object.keys(array),
+                                    datasets: [{
+                                        label: '',
+                                        data: Object.values(array)
+                                    }]
+                                }
+
+                                const opt = {
+                                    options: {
+                                        scales: {
+                                            xAxes: [{
+                                                time: {
+                                                    unit: 'date'
+                                                },
+                                                gridLines: {
+                                                    display: false
+                                                },
+                                                ticks: {
+                                                    maxTicksLimit: 7
+                                                }
+                                            }],
+                                            yAxes: [{
+                                                ticks: {
+                                                    min: response.min,
+                                                    max: response.max,
+                                                    maxTicksLimit: 5
+                                                },
+                                                gridLines: {
+                                                    color: "rgba(0, 0, 0, .125)",
+                                                }
+                                            }],
+                                        },
+                                        legend: {
+                                            display: true
+                                        }
+                                    }
+                                }
+
+                                chart.data.labels = data.labels
+                                chart.data.datasets = data.datasets
+                                chart.options = opt.options
+                                chart.update()
+                                document.getElementById('show-amount').innerText = response.amount;
                             }
                         };
-                        xmlHttp.open("GET", "/analytics/data?start=" + start + "&final=" + final + "&type=" + type, true);
+                        xmlHttp.open("GET", "/analytics/data?start=" + start + "&final=" + final + "&type=" + type+ "&variant=" + v, true);
                         xmlHttp.send();
-
-
-                        var data =  {
-                            labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                            datasets: [{
-                                label: '# of Votes',
-                                data: [122, 192, 3, 55, 2, 322],
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)',
-                                    'rgba(255, 159, 64, 0.2)'
-                                ],
-                                borderColor: [
-                                    'rgba(255,99,132,1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)',
-                                    'rgba(255, 159, 64, 1)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        }
-                        chart.data.labels = data.labels
-                        chart.data.datasets = data.datasets
-                        chart.update()
                     }
                 </script>
             </div>

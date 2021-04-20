@@ -139,7 +139,34 @@ class AnalyticsController extends Controller
         $dataType = (!empty($request->input('type'))) ? $request->input('type') : 1;
         $dataVariant = (!empty($request->input('variant'))) ? $request->input('variant') : 1;
         $data = ($dataVariant==1) ? $this->income->getIncomesByDateRange($dateStart,$dateFinal,$dataType) : $this->costs->getCostsByDateRange($dateStart,$dateFinal,$dataType);
+        $amount = $maxAmount = $minAmount =  0;
+        $dateArray = [];
 
-        return json_encode(['r'=>$data]);
+        foreach($data as $p){
+            $dateToShow = Carbon::parse($p['date'])->format('Y-m-d');
+
+            if($dataVariant == 1){
+                if (array_key_exists($dateToShow, $dateArray)) {
+                    $dateArray[$dateToShow] = (int)$dateArray[$dateToShow] + (int)$p['amount'];
+                }else{
+                    $dateArray[$dateToShow] = (int)$p['amount'];
+                }
+
+                $amount += $p['amount'];
+                $maxAmount = ($maxAmount < $dateArray[$dateToShow]) ? $dateArray[$dateToShow] : $maxAmount;
+            }else{
+                if (array_key_exists($dateToShow, $dateArray)) {
+                    $dateArray[$dateToShow] = -(int)$dateArray[$dateToShow] + (-(int)$p['amount']);
+                }else{
+                    $dateArray[$dateToShow] = -(int)$p['amount'];
+                }
+
+                $amount = $amount + (-$p['amount']);
+                $minAmount = ($minAmount > $dateArray[$dateToShow]) ? $dateArray[$dateToShow] : $minAmount;
+            }
+
+        }
+
+        return json_encode(['amount'=>$amount, 'date'=>$dateArray, 'max' => $maxAmount, 'min' => $minAmount ]);
     }
 }
