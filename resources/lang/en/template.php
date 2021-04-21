@@ -40,6 +40,7 @@ return [
     'navbar' => 'Money manager',
     'calendar' => 'Calendar',
     'analytics' => 'Analytics',
+    'export-import' => 'Export/Import',
     'incomes' => 'Incomes',
     'costs' => 'Costs',
     'list-incomes' => 'List incomes',

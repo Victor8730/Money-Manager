@@ -160,34 +160,6 @@
                                 pointBorderWidth: 2,
                                 data: [],
                             }],
-                        },
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                    time: {
-                                        unit: 'date'
-                                    },
-                                    gridLines: {
-                                        display: false
-                                    },
-                                    ticks: {
-                                        maxTicksLimit: 7
-                                    }
-                                }],
-                                yAxes: [{
-                                    ticks: {
-                                        min: -1000,
-                                        max: 1000,
-                                        maxTicksLimit: 5
-                                    },
-                                    gridLines: {
-                                        color: "rgba(0, 0, 0, .125)",
-                                    }
-                                }],
-                            },
-                            legend: {
-                                display: true
-                            }
                         }
                     });
 
@@ -243,7 +215,7 @@
                                     labels: Object.keys(array),
                                     datasets: [{
                                         label: '',
-                                        data: Object.values(array)
+                                        data: Object.values(array),
                                     }]
                                 }
 
@@ -279,7 +251,7 @@
                                 }
 
                                 chart.data.labels = data.labels
-                                chart.data.datasets = data.datasets
+                                chart.data.datasets = [{ ...data.datasets[0], ...set[0] }]
                                 chart.options = opt.options
                                 chart.update()
                                 document.getElementById('show-amount').innerText = response.amount;

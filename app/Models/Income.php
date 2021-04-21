@@ -84,7 +84,7 @@ class Income extends Model
     public function getIncomesByDateRange(Carbon $dateStart, Carbon $dateFinal, int $type): object
     {
         return $this->select()
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', 'asc')
             ->where('type_id', $type)
             ->where('user_id', Auth::id())
             ->whereBetween('date', [$dateStart, $dateFinal])

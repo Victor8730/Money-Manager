@@ -61,8 +61,8 @@
                         @lang('template.analytics')
                     </a>
                     <a class="nav-link" href="/export-import">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        @lang('template.export-import') <span class="badge bg-danger mx-2">in dev.</span>
+                        <div class="sb-nav-link-icon"><i class="fas fa-download"></i></div>
+                        @lang('template.export-import') <span class="badge bg-danger mx-2">dev.</span>
                     </a>
                     <div class="sb-sidenav-menu-heading">@lang('template.customization')</div>
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"

@@ -40,6 +40,7 @@ return [
     'navbar' => 'Менеджер доходов',
     'calendar' => 'Календарь',
     'analytics' => 'Аналитика',
+    'export-import' => 'Экспорт/Импорт',
     'incomes' => 'Доходы',
     'costs' => 'Расходы',
     'list-incomes' => 'Список доходов',
