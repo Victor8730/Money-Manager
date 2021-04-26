@@ -96,4 +96,6 @@ return [
     'update-type' => 'Обновить тип',
     'click-this-button-to-create-a-new-type' => 'Нажмите эту кнопку, чтобы создать новый тип',
     'click-this-button-to-update-type' => 'Нажмите эту кнопку, чтобы обновить тип',
+    'settings-fields' => 'Дополнительные настроки',
+    'settings-fields-hide' => 'Спрятать в выпадающем списке',
 ];

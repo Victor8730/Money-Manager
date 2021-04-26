@@ -44,6 +44,18 @@
                         <textarea class="form-control" name="desc" placeholder="@lang('incomes-costs.description')">{{ $costsType->desc }}</textarea>
                     </div>
                 </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>@lang('incomes-costs.settings-fields'):</strong>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="hide" {{ old('hide', $costsType->hide) === 1 ? 'checked' : '' }}>
+                                @lang('incomes-costs.settings-fields-hide')
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-success tooltip-show" title="@lang('incomes-costs.click-this-button-to-update-type')">

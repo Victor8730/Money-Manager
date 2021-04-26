@@ -96,4 +96,6 @@ return [
     'update-type' => 'Update type',
     'click-this-button-to-create-a-new-type' => 'Click this button to create a new type',
     'click-this-button-to-update-type' => 'Click this button to update type',
+    'settings-fields' => 'Settings',
+    'settings-fields-hide' => 'hide in the dropdown list',
 ];

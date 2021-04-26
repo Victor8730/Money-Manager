@@ -87,4 +87,6 @@ return [
     'update-type' => 'Оновити тип',
     'click-this-button-to-create-a-new-type' => 'Натисніть цю кнопку, щоб створити новий тип',
     'click-this-button-to-update-type' => 'Натисніть цю кнопку, щоб оновити тип',
+    'settings-fields' => 'Додаткові параметри',
+    'settings-fields-hide' => 'Заховати в випадаючому списку',
 ];

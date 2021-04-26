@@ -48,6 +48,17 @@
                             @lang('incomes-costs.create-new-type')
                         </button>
                     </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>@lang('incomes-costs.settings-fields'):</strong>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="hide">
+                                    @lang('incomes-costs.settings-fields-hide')
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

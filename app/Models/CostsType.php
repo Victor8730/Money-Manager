@@ -32,6 +32,7 @@ class CostsType extends Model
         'name',
         'desc',
         'user_id',
+        'hide',
         'created_at',
         'updated_at'
     ];
@@ -68,11 +69,12 @@ class CostsType extends Model
 
     /**
      * Get all costs type from user, in format object
+     * If hide field = 0
      * @return object
      */
     public function getType(): object
     {
-        return parent::all()->where('user_id', Auth::id());
+        return parent::all()->where('user_id', Auth::id())->where('hide', 0);
     }
 
     /**

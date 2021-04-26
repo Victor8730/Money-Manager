@@ -43,9 +43,11 @@ class CostsTypeController extends Controller
             'name' => 'required',
             'desc' => 'required'
         ]);
+
         CostsType::create([
             'name' => $request->input('name'),
             'desc' => $request->input('desc'),
+            'hide' => (!empty($request->input('hide'))) ? 1 : 0,
             'user_id' => Auth::id()
         ]);
 
@@ -84,11 +86,18 @@ class CostsTypeController extends Controller
      */
     public function update(Request $request, CostsType $costsType)
     {
+
+
         $request->validate([
             'name' => 'required',
-            'desc' => 'required'
+            'desc' => 'required',
         ]);
-        $costsType->update($request->all());
+        $costsType->update([
+            'name' => $request->input('name'),
+            'desc' => $request->input('desc'),
+            'hide' => (!empty($request->input('hide'))) ? 1 : 0,
+            'user_id' => Auth::id()
+        ]);
 
         return redirect()->route('costs-type.index')
             ->with('success', 'Costs type updated successfully');
