@@ -156,12 +156,12 @@ class AnalyticsController extends Controller
                 $maxAmount = ($maxAmount < $dateArray[$dateToShow]) ? $dateArray[$dateToShow] : $maxAmount;
             }else{
                 if (array_key_exists($dateToShow, $dateArray)) {
-                    $dateArray[$dateToShow] = -(int)$dateArray[$dateToShow] + (-(int)$p['amount']);
+                    $dateArray[$dateToShow] = (((int)$dateArray[$dateToShow] < 0 ? (int)$dateArray[$dateToShow] : -1*((int)$dateArray[$dateToShow])) + -1*((int)$p['amount']));
                 }else{
-                    $dateArray[$dateToShow] = -(int)$p['amount'];
+                    $dateArray[$dateToShow] = -1*((int)$p['amount']);
                 }
 
-                $amount = $amount + (-$p['amount']);
+                $amount = $amount + (-1*(int)$p['amount']);
                 $minAmount = ($minAmount > $dateArray[$dateToShow]) ? $dateArray[$dateToShow] : $minAmount;
             }
 

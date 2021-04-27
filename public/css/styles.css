@@ -4748,7 +4748,7 @@ input[type=button].btn-block {
 .card-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 1.25rem;
+    padding: 1rem;
 }
 
 .card-title {
@@ -10612,16 +10612,6 @@ a.text-dark:hover, a.text-dark:focus {
 html,
 body {
     height: 100%;
-}
-
-.container,
-.container-fluid,
-.container-sm,
-.container-md,
-.container-lg,
-.container-xl {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
 }
 
 #layoutAuthentication {
