@@ -45,6 +45,9 @@ return [
     /*
      * costs,income/form.blade.php
      */
+    'on' => 'On',
+    'off' => 'Off',
+    'status' => 'Status',
     'type-costs' => 'Type Costs',
     'type-incomes' => 'Type Incomes',
     'new-type' => 'New Type',
@@ -97,5 +100,5 @@ return [
     'click-this-button-to-create-a-new-type' => 'Click this button to create a new type',
     'click-this-button-to-update-type' => 'Click this button to update type',
     'settings-fields' => 'Settings',
-    'settings-fields-hide' => 'hide in the dropdown list',
+    'settings-fields-hide' => 'Hide in the drop-down list, i.e. prohibit creating new expenses with this type. Expenses with this type that were created earlier will not be affected',
 ];

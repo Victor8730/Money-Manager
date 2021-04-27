@@ -47,11 +47,13 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>@lang('incomes-costs.settings-fields'):</strong>
+                        <strong>@lang('incomes-costs.status'):  <span class="tooltip-show" title="@lang('incomes-costs.settings-fields-hide')"><i class="fas fa-info-circle tooltip-show"></i></span></strong>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="hide" {{ old('hide', $costsType->hide) === 1 ? 'checked' : '' }}>
-                                @lang('incomes-costs.settings-fields-hide')
+                                <select class="form-control" name="status">
+                                    <option value="1" {{($costsType->status) === 1 ? 'selected' : '' }}>@lang('incomes-costs.on')</option>
+                                    <option value="0" {{($costsType->status) === 0 ? 'selected' : '' }}>@lang('incomes-costs.off')</option>
+                                </select>
                             </label>
                         </div>
                     </div>

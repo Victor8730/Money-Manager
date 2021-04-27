@@ -41,14 +41,15 @@ class CostsTypeController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'desc' => 'required'
+            'desc' => 'required',
+            'status' => 'required',
         ]);
 
         CostsType::create([
             'name' => $request->input('name'),
             'desc' => $request->input('desc'),
-            'hide' => (!empty($request->input('hide'))) ? 1 : 0,
-            'user_id' => Auth::id()
+            'status' => $request->input('status'),
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('costs-type.index')
@@ -91,12 +92,13 @@ class CostsTypeController extends Controller
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
+            'status' => 'required',
         ]);
         $costsType->update([
             'name' => $request->input('name'),
             'desc' => $request->input('desc'),
-            'hide' => (!empty($request->input('hide'))) ? 1 : 0,
-            'user_id' => Auth::id()
+            'status' => $request->input('status'),
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('costs-type.index')

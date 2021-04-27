@@ -42,22 +42,24 @@
                             <textarea class="form-control" name="desc" placeholder="@lang('incomes-costs.description')"></textarea>
                         </div>
                     </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong>@lang('incomes-costs.status'):  <span class="tooltip-show" title="@lang('incomes-costs.settings-fields-hide')"><i class="fas fa-info-circle tooltip-show"></i></span></strong>
+                            <div class="checkbox">
+                                <label>
+                                    <select class="form-control" name="status">
+                                        <option value="1">@lang('incomes-costs.on')</option>
+                                        <option value="0">@lang('incomes-costs.off')</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button type="submit" class="btn btn-success tooltip-show"
                                 title="@lang('incomes-costs.click-this-button-to-create-a-new-type')">
                             @lang('incomes-costs.create-new-type')
                         </button>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>@lang('incomes-costs.settings-fields'):</strong>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="hide">
-                                    @lang('incomes-costs.settings-fields-hide')
-                                </label>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </form>

@@ -14,7 +14,7 @@ class AddSwitcherHideCostType extends Migration
     public function up()
     {
         Schema::table('costs_types', function (Blueprint $table) {
-            $table->integer('hide')
+            $table->integer('status')
                 ->after('desc');
         });
     }
