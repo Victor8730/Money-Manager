@@ -47,6 +47,24 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
+                        <strong>@lang('incomes-costs.parent'):  <span class="tooltip-show" title="@lang('incomes-costs.settings-parent')"><i class="fas fa-info-circle tooltip-show"></i></span></strong>
+                        <div class="checkbox">
+                            <label>
+                                <select class="form-control" name="parent">
+                                    <option value="0" {{($costsType->parent) === 0 ? 'selected' : '' }}>@lang('incomes-costs.empty')</option>
+                                    @foreach ($type as $t)
+                                        @if ($costsType->id !== $t->id)
+                                            <option value="{{ $t->id }}" {{($costsType->parent) === $t->id ? 'selected' : '' }}>{{$t->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
                         <strong>@lang('incomes-costs.status'):  <span class="tooltip-show" title="@lang('incomes-costs.settings-fields-hide')"><i class="fas fa-info-circle tooltip-show"></i></span></strong>
                         <div class="checkbox">
                             <label>
@@ -58,6 +76,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-success tooltip-show" title="@lang('incomes-costs.click-this-button-to-update-type')">

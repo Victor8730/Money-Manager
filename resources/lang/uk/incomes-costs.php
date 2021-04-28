@@ -48,6 +48,11 @@ return [
     'on' => 'Включить',
     'off' => 'Выключить',
     'status' => 'Статус',
+    'status-on' => 'Активний',
+    'status-off' => 'Вимкнено',
+    'parent' => 'Батьківський тип',
+    'parent-exist' => 'Має предка',
+    'empty' => 'Пусто',
     'type-costs' => 'Тип витрат',
     'type-incomes' => 'Тип доходів',
     'new-type' => 'Новый тип',
@@ -76,6 +81,15 @@ return [
     'fill-all-fields-costs' => 'Заповніть поля, щоб створити нову витрату',
     'change-fields-income' => 'Змінити поля доходу',
     'change-fields-costs' => 'Змінити поля витрат',
+
+    /*
+     * costs-type,income-type/index.blade.php
+     */
+
+    'create-new-income-type' => 'Створити новий вид доходу',
+    'create-new-costs-type' => 'Створити новий вид витрат',
+    'income-type-table' => 'Таблиця видів доходу',
+    'costs-type-table' => 'Список видів витрат',
     'no' => 'Номер',
     'name' => 'Назва',
 
@@ -92,4 +106,5 @@ return [
     'click-this-button-to-update-type' => 'Натисніть цю кнопку, щоб оновити тип',
     'settings-fields' => 'Додаткові параметри',
     'settings-fields-hide' => 'Сховати в випадаючому списку, тобто заборонити створювати нові витрати з таким типом. Витрати з цим типом, що були створені раніше, чіпатися не будуть',
+    'settings-parent' => 'Якщо потрібно, можна вибрати батьків',
 ];

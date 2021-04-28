@@ -32,6 +32,7 @@ class CostsType extends Model
         'name',
         'desc',
         'user_id',
+        'parent',
         'status',
         'created_at',
         'updated_at'

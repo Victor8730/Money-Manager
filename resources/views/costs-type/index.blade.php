@@ -25,51 +25,37 @@
             @lang('incomes-costs.costs-type-table')
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>@lang('incomes-costs.no')</th>
-                        <th>@lang('incomes-costs.name')</th>
-                        <th>@lang('incomes-costs.description')</th>
-                        <th width="150px">@lang('incomes-costs.action')</th>
-                    </tr>
-                    </thead>
-                    <tfoot>
-                    <tr>
-                        <th>@lang('incomes-costs.no')</th>
-                        <th>@lang('incomes-costs.name')</th>
-                        <th>@lang('incomes-costs.description')</th>
-                        <th width="150px">@lang('incomes-costs.action')</th>
-                    </tr>
-                    </tfoot>
-                    <tbody>
-                    @foreach ($costsType as $type)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $type->name }}</td>
-                            <td>{{ $type->desc }}</td>
-                            <td>
-                                <form action="{{ route('costs-type.destroy', $type->id) }}" class="del-item" method="POST">
 
-                                    <a href="{{ route('costs-type.show', $type->id) }}" title="@lang('incomes-costs.show')" class="btn tooltip-show p-1">
-                                        <i class="fas fa-eye text-success  fa-lg"></i>
-                                    </a>
-                                    <a href="{{ route('costs-type.edit', $type->id) }}" title="@lang('incomes-costs.edit')" class="btn tooltip-show p-1">
-                                        <i class="fas fa-edit  fa-lg"></i>
-                                    </a>
-                                    @csrf
-                                    @method('DELETE')
+            <div class="list-group">
+                @foreach ($costsType as $type)
 
-                                    <button type="submit" title="@lang('incomes-costs.delete')" class="btn tooltip-show p-1">
-                                        <i class="fas fa-trash fa-lg text-danger"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                    <div class="list-group-item">
+                        <div class="h5 pr-5">
+                            <a href="{{ route('costs-type.edit', $type->id) }}" class="text-secondary">
+                                {{ $type->name }}
+                            </a>
+                        </div>
+
+                        {!!$type->parent !== 0 ? '<span class="btn p1 badge-secondary badge tooltip-show" title="'.__('incomes-costs.parent-exist').'"><i class="fas fa-angle-double-right"></i></span>' : ''!!}
+                        {!!$type->status === 1 ? '<span class="btn p1 tooltip-show" title="'.__('incomes-costs.status-on').'"><i class="fa fa-check text-success"></i></span>' : '<span class="btn p1 tooltip-show" title="'.__('incomes-costs.status-off').'"><i class="fas fa-minus"></i></span>'!!}
+
+                        <form action="{{ route('costs-type.destroy', $type->id) }}" class="del-item figure" method="POST">
+
+                            <a href="{{ route('costs-type.show', $type->id) }}" title="{{ $type->desc }}" class="btn tooltip-show p-1">
+                                <i class="fas fa-eye text-success fa-lg"></i>
+                            </a>
+                            <a href="{{ route('costs-type.edit', $type->id) }}" title="@lang('incomes-costs.edit')" class="btn tooltip-show p-1">
+                                <i class="fas fa-edit fa-lg text-secondary"></i>
+                            </a>
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" title="@lang('incomes-costs.delete')" class="btn tooltip-show p-1">
+                                <i class="fas fa-trash fa-lg text-danger"></i>
+                            </button>
+                        </form>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

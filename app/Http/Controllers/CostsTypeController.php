@@ -28,7 +28,10 @@ class CostsTypeController extends Controller
      */
     public function create()
     {
-        return view('costs-type.create');
+
+        $type = (new CostsType)->getType();
+
+        return view('costs-type.create', compact('type'));
     }
 
     /**
@@ -42,12 +45,14 @@ class CostsTypeController extends Controller
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
+            'parent' => 'required',
             'status' => 'required',
         ]);
 
         CostsType::create([
             'name' => $request->input('name'),
             'desc' => $request->input('desc'),
+            'parent' => $request->input('parent'),
             'status' => $request->input('status'),
             'user_id' => Auth::id(),
         ]);
@@ -75,7 +80,9 @@ class CostsTypeController extends Controller
      */
     public function edit(CostsType $costsType)
     {
-        return view('costs-type.edit', compact('costsType'));
+        $type = (new CostsType)->getType();
+
+        return view('costs-type.edit', compact('costsType', 'type'));
     }
 
     /**
@@ -87,16 +94,16 @@ class CostsTypeController extends Controller
      */
     public function update(Request $request, CostsType $costsType)
     {
-
-
         $request->validate([
             'name' => 'required',
             'desc' => 'required',
+            'parent' => 'required',
             'status' => 'required',
         ]);
         $costsType->update([
             'name' => $request->input('name'),
             'desc' => $request->input('desc'),
+            'parent' => $request->input('parent'),
             'status' => $request->input('status'),
             'user_id' => Auth::id(),
         ]);

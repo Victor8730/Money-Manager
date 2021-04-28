@@ -48,6 +48,11 @@ return [
     'on' => 'On',
     'off' => 'Off',
     'status' => 'Status',
+    'status-on' => 'Active',
+    'status-off' => 'Deactivated',
+    'parent' => 'Parent type',
+    'parent-exist' => 'Parent exist',
+    'empty' => 'Empty',
     'type-costs' => 'Type Costs',
     'type-incomes' => 'Type Incomes',
     'new-type' => 'New Type',
@@ -101,4 +106,5 @@ return [
     'click-this-button-to-update-type' => 'Click this button to update type',
     'settings-fields' => 'Settings',
     'settings-fields-hide' => 'Hide in the drop-down list, i.e. prohibit creating new expenses with this type. Expenses with this type that were created earlier will not be affected',
+    'settings-parent' => 'Check parent type',
 ];

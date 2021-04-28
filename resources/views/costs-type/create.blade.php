@@ -44,6 +44,21 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <strong>@lang('incomes-costs.parent'):  <span class="tooltip-show" title="@lang('incomes-costs.settings-parent')"><i class="fas fa-info-circle tooltip-show"></i></span></strong>
+                            <div class="checkbox">
+                                <label>
+                                    <select class="form-control" name="parent">
+                                        <option value="0">@lang('incomes-costs.empty')</option>
+                                        @foreach ($type as $t)
+                                            <option value="{{ $t->id }}">{{$t->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <strong>@lang('incomes-costs.status'):  <span class="tooltip-show" title="@lang('incomes-costs.settings-fields-hide')"><i class="fas fa-info-circle tooltip-show"></i></span></strong>
                             <div class="checkbox">
                                 <label>
